@@ -1,0 +1,9455 @@
+/* =========================================
+   AIKEN'S PALACE
+   PREMIUM LUXURY RESORT WEBSITE
+   RESPONSIVE MASTER STYLESHEET
+========================================= */
+
+:root {
+    --black: #0b0b0a;
+    --deep-black: #11110f;
+    --black-soft: #181815;
+
+    --cream: #f3efe8;
+    --warm-white: #faf8f3;
+
+    --gold: #c5a46d;
+    --gold-light: #dfc58f;
+    --gold-dark: #9f7d47;
+
+    --muted: #817c73;
+    --muted-light: #b4aea3;
+
+    --border: rgba(21, 21, 21, 0.15);
+    --dark-border: rgba(255, 255, 255, 0.15);
+
+    --container: 1400px;
+
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Manrope", Arial, sans-serif;
+
+    --ease: cubic-bezier(.22, 1, .36, 1);
+    --ease-soft: cubic-bezier(.16, 1, .3, 1);
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    background: var(--cream);
+}
+
+body {
+    margin: 0;
+    background: var(--cream);
+    color: #151515;
+    font-family: var(--sans);
+    font-weight: 400;
+    overflow-x: hidden;
+}
+
+body.menu-open {
+    overflow: hidden;
+}
+
+img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+::selection {
+    background: var(--gold);
+    color: var(--black);
+}
+
+
+/* =========================================
+   PRELOADER
+========================================= */
+
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--black);
+    transition:
+        opacity .8s var(--ease),
+        visibility .8s var(--ease);
+}
+
+.loader.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-inner {
+    width: min(420px, 80%);
+    text-align: center;
+}
+
+.loader-logo {
+    color: var(--warm-white);
+    font-family: var(--serif);
+    font-size: clamp(30px, 5vw, 52px);
+    letter-spacing: .16em;
+}
+
+.loader-subtitle {
+    margin-top: 8px;
+    color: var(--gold);
+    font-size: 9px;
+    letter-spacing: .34em;
+}
+
+.loader-line {
+    width: 100%;
+    height: 1px;
+    margin-top: 35px;
+    background: rgba(255,255,255,.14);
+    overflow: hidden;
+}
+
+.loader-line span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--gold);
+    transform: translateX(-100%);
+    animation: loaderLine 1.8s var(--ease) forwards;
+}
+
+@keyframes loaderLine {
+    to {
+        transform: translateX(0);
+    }
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9000;
+    color: white;
+    transition:
+        background .5s ease,
+        padding .5s ease,
+        box-shadow .5s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(11,11,10,.94);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 10px 40px rgba(0,0,0,.15);
+}
+
+.nav-inner {
+    width: min(var(--container), calc(100% - 80px));
+    min-height: 105px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: min-height .5s ease;
+}
+
+.navbar.scrolled .nav-inner {
+    min-height: 78px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    line-height: .8;
+    letter-spacing: .14em;
+}
+
+.logo span {
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.logo strong {
+    margin-top: 7px;
+    font-family: var(--serif);
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: .09em;
+}
+
+.desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 27px;
+}
+
+.desktop-nav a {
+    position: relative;
+    color: rgba(255,255,255,.82);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    transition: color .3s ease;
+}
+
+.desktop-nav a:not(.nav-book)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width .4s var(--ease);
+}
+
+.desktop-nav a:hover {
+    color: white;
+}
+
+.desktop-nav a:hover::after {
+    width: 100%;
+}
+
+.nav-book {
+    padding: 13px 21px;
+    border: 1px solid rgba(197,164,109,.75);
+    color: var(--gold-light) !important;
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease;
+}
+
+.nav-book:hover {
+    background: var(--gold);
+    color: var(--black) !important;
+    transform: translateY(-2px);
+}
+
+.menu-button {
+    display: none;
+    width: 46px;
+    height: 46px;
+    border: 0;
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.menu-button span {
+    width: 25px;
+    height: 1px;
+    background: white;
+    transition: transform .35s ease;
+}
+
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+
+.mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 9500;
+    display: flex;
+    flex-direction: column;
+    padding: 35px 30px;
+    background: var(--black);
+    color: white;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition:
+        opacity .45s ease,
+        visibility .45s ease,
+        transform .45s var(--ease);
+}
+
+.mobile-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.close-menu {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 45px;
+    height: 45px;
+    border: 1px solid var(--dark-border);
+    background: transparent;
+    color: white;
+    font-size: 30px;
+    font-weight: 300;
+    line-height: 1;
+}
+
+.mobile-menu-top {
+    padding-top: 5px;
+    color: var(--gold);
+    font-size: 9px;
+    letter-spacing: .3em;
+}
+
+.mobile-menu-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    gap: 7px;
+}
+
+.mobile-menu-links a {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    color: white;
+    font-family: var(--serif);
+    font-size: clamp(32px, 9vw, 52px);
+    line-height: 1.03;
+    transition: color .3s ease, padding-left .35s ease;
+}
+
+.mobile-menu-links a small {
+    color: var(--gold);
+    font-family: var(--sans);
+    font-size: 8px;
+    letter-spacing: .1em;
+}
+
+.mobile-menu-links a:hover {
+    color: var(--gold-light);
+    padding-left: 8px;
+}
+
+.mobile-menu-footer {
+    padding-top: 20px;
+    border-top: 1px solid var(--dark-border);
+    color: var(--muted-light);
+    font-size: 8px;
+    letter-spacing: .28em;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+    position: relative;
+    min-height: 100svh;
+    height: 100svh;
+    overflow: hidden;
+    background: var(--black);
+    color: white;
+}
+
+.hero-image {
+    position: absolute;
+    inset: 0;
+    background:
+        url("images/exterior.jpg")
+        center center / cover
+        no-repeat;
+    transform: scale(1.04);
+    animation: heroImage 14s ease-out forwards;
+}
+
+@keyframes heroImage {
+    from {
+        transform: scale(1.12);
+    }
+    to {
+        transform: scale(1.04);
+    }
+}
+
+.hero-dark {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.12) 0%,
+            rgba(0,0,0,.18) 30%,
+            rgba(0,0,0,.58) 72%,
+            rgba(0,0,0,.82) 100%
+        );
+}
+
+.hero-grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .07;
+    background-image:
+        radial-gradient(
+            rgba(255,255,255,.8) .6px,
+            transparent .6px
+        );
+    background-size: 4px 4px;
+    mix-blend-mode: overlay;
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    right: 8%;
+    width: min(620px, 45%);
+    transform: translateY(-45%);
+    z-index: 2;
+    animation: heroContent 1.3s 1s var(--ease) both;
+}
+
+@keyframes heroContent {
+    from {
+        opacity: 0;
+        transform: translateY(-35%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-45%);
+    }
+}
+
+.hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    color: var(--gold-light);
+    font-size: 8px;
+    letter-spacing: .25em;
+    line-height: 1.6;
+}
+
+.hero-eyebrow span {
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--gold);
+}
+
+.hero-eyebrow span:last-child {
+    width: 12px;
+}
+
+.hero h1 {
+    margin: 24px 0 17px;
+    font-family: var(--serif);
+    font-size: clamp(72px, 9vw, 150px);
+    font-weight: 400;
+    line-height: .72;
+    letter-spacing: -.045em;
+}
+
+.hero h1 em {
+    display: block;
+    margin-left: 15%;
+    color: var(--gold-light);
+    font-weight: 400;
+}
+
+.hero-content > p {
+    max-width: 420px;
+    color: rgba(255,255,255,.78);
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.9;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 34px;
+}
+
+.gold-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    min-height: 52px;
+    padding: 0 23px;
+    border: 1px solid var(--gold);
+    background: var(--gold);
+    color: var(--black);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    transition:
+        background .35s ease,
+        color .35s ease,
+        transform .35s var(--ease),
+        box-shadow .35s ease;
+}
+
+.gold-button span {
+    font-size: 16px;
+    transition: transform .35s ease;
+}
+
+.gold-button:hover {
+    background: transparent;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.2);
+}
+
+.gold-button:hover span {
+    transform: translateX(5px);
+}
+
+.text-button {
+    position: relative;
+    color: white;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+}
+
+.text-button::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -8px;
+    height: 1px;
+    background: var(--gold);
+    transform-origin: left;
+    transition: transform .4s var(--ease);
+}
+
+.text-button:hover::after {
+    transform: scaleX(.35);
+}
+
+.text-button span {
+    margin-left: 7px;
+}
+
+.hero-bottom {
+    position: absolute;
+    z-index: 3;
+    left: 5%;
+    right: 5%;
+    bottom: 34px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: end;
+}
+
+.hero-location {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255,255,255,.75);
+    font-size: 8px;
+    letter-spacing: .2em;
+}
+
+.location-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 5px rgba(197,164,109,.12);
+}
+
+.scroll-down {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.scroll-down span {
+    color: rgba(255,255,255,.55);
+    font-size: 7px;
+    letter-spacing: .25em;
+}
+
+.scroll-down div {
+    width: 1px;
+    height: 45px;
+    background: rgba(255,255,255,.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.scroll-down div::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -100%;
+    width: 100%;
+    height: 60%;
+    background: var(--gold);
+    animation: scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+    0% {
+        top: -70%;
+    }
+    50% {
+        top: 100%;
+    }
+    100% {
+        top: 100%;
+    }
+}
+
+.hero-number {
+    justify-self: end;
+    color: white;
+    font-family: var(--serif);
+    font-size: 21px;
+}
+
+.hero-number span {
+    margin: 0 7px;
+    color: var(--gold);
+    font-size: 11px;
+}
+
+
+/* =========================================
+   GENERAL
+========================================= */
+
+.section-label {
+    color: var(--muted);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .25em;
+}
+
+.section-label.light {
+    color: var(--gold-light);
+}
+
+.section-line {
+    display: block;
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+.discover-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 17px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid rgba(21,21,21,.3);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    transition: gap .35s ease, color .3s ease;
+}
+
+.discover-link:hover {
+    gap: 24px;
+    color: var(--gold-dark);
+}
+
+
+/* =========================================
+   INTRO
+========================================= */
+
+.intro {
+    padding: 125px 7% 95px;
+    background: var(--cream);
+}
+
+.intro-top {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.intro-grid {
+    max-width: 1250px;
+    margin: 110px auto 0;
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 12%;
+}
+
+.intro-title {
+    position: relative;
+}
+
+.floating-number {
+    position: absolute;
+    top: -48px;
+    right: 8%;
+    color: rgba(197,164,109,.35);
+    font-family: var(--serif);
+    font-size: 80px;
+    line-height: 1;
+}
+
+.intro h2 {
+    position: relative;
+    z-index: 1;
+    font-family: var(--serif);
+    font-size: clamp(58px, 6.5vw, 104px);
+    font-weight: 400;
+    line-height: .86;
+    letter-spacing: -.04em;
+}
+
+.intro h2 em {
+    color: var(--gold-dark);
+    font-weight: 400;
+}
+
+.intro-copy {
+    padding-top: 14px;
+}
+
+.large-copy {
+    margin-bottom: 28px;
+    font-family: var(--serif);
+    font-size: 29px;
+    line-height: 1.2;
+}
+
+.intro-copy > p:not(.large-copy) {
+    max-width: 490px;
+    margin-bottom: 35px;
+    color: #666158;
+    font-size: 13px;
+    line-height: 2;
+}
+
+.intro-signature {
+    max-width: 1250px;
+    margin: 100px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .25em;
+}
+
+
+/* =========================================
+   REVEAL
+========================================= */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(45px);
+    transition:
+        opacity 1s var(--ease),
+        transform 1s var(--ease);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   ROOMS
+========================================= */
+
+.rooms {
+    padding: 120px 5% 130px;
+    background: var(--black);
+    color: white;
+}
+
+.rooms-header {
+    max-width: var(--container);
+    margin: 0 auto 65px;
+    display: grid;
+    grid-template-columns: 1fr .65fr;
+    gap: 8%;
+    align-items: end;
+}
+
+.rooms-header h2 {
+    margin-top: 17px;
+    font-family: var(--serif);
+    font-size: clamp(55px, 7vw, 105px);
+    font-weight: 400;
+    line-height: .82;
+    letter-spacing: -.045em;
+}
+
+.rooms-header h2 em {
+    color: var(--gold-light);
+    font-weight: 400;
+}
+
+.rooms-header > p {
+    color: rgba(255,255,255,.57);
+    font-size: 12px;
+    line-height: 2;
+}
+
+.rooms-grid {
+    max-width: var(--container);
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.room-card {
+    min-width: 0;
+}
+
+.room-card-large {
+    margin-top: 90px;
+}
+
+.room-image {
+    position: relative;
+    height: 510px;
+    overflow: hidden;
+    background: #20201d;
+}
+
+.room-card-large .room-image {
+    height: 600px;
+}
+
+.room-image img {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.1s var(--ease);
+}
+
+.room-card:hover .room-image img {
+    transform: scale(1.07);
+}
+
+.room-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.25),
+            transparent 40%,
+            rgba(0,0,0,.55)
+        );
+}
+
+.room-tag,
+.room-index,
+.room-image-arrow {
+    position: absolute;
+    z-index: 2;
+}
+
+.room-tag {
+    top: 22px;
+    left: 22px;
+    padding: 8px 11px;
+    border: 1px solid rgba(255,255,255,.38);
+    color: white;
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .2em;
+}
+
+.room-index {
+    top: 24px;
+    right: 22px;
+    color: rgba(255,255,255,.7);
+    font-family: var(--serif);
+    font-size: 22px;
+}
+
+.room-image-arrow {
+    right: 20px;
+    bottom: 20px;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255,255,255,.45);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+        opacity .4s ease,
+        transform .4s var(--ease),
+        background .3s ease;
+}
+
+.room-card:hover .room-image-arrow {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.room-image-arrow:hover {
+    background: var(--gold);
+    color: var(--black);
+}
+
+.room-details {
+    padding: 25px 3px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.room-details h3 {
+    font-family: var(--serif);
+    font-size: 31px;
+    font-weight: 400;
+}
+
+.room-details p {
+    max-width: 330px;
+    margin: 9px 0 16px;
+    color: rgba(255,255,255,.48);
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.room-specs {
+    color: var(--gold-light);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .18em;
+}
+
+.room-explore {
+    align-self: flex-end;
+    flex: 0 0 auto;
+    border: 0;
+    border-bottom: 1px solid rgba(255,255,255,.35);
+    padding: 0 0 7px;
+    background: transparent;
+    color: white;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    transition:
+        color .3s ease,
+        border-color .3s ease;
+}
+
+.room-explore span {
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.room-explore:hover {
+    color: var(--gold-light);
+    border-color: var(--gold);
+}
+
+
+/* =========================================
+   ROOM MODAL
+========================================= */
+
+.room-modal,
+.booking-modal,
+.experience-modal,
+.payment-success-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        opacity .4s ease,
+        visibility .4s ease;
+}
+
+.room-modal.active,
+.booking-modal.active,
+.experience-modal.active,
+.payment-success-modal.active {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.room-modal-backdrop,
+.booking-modal-backdrop,
+.experience-modal-backdrop,
+.payment-success-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.82);
+    backdrop-filter: blur(12px);
+}
+
+.room-modal-box {
+    position: relative;
+    z-index: 2;
+    width: min(1100px, 100%);
+    max-height: 90vh;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 48% 52%;
+    background: var(--cream);
+    color: #151515;
+    transform: translateY(35px) scale(.97);
+    transition: transform .65s var(--ease);
+}
+
+.room-modal.active .room-modal-box {
+    transform: translateY(0) scale(1);
+}
+
+.room-modal-close,
+.experience-modal-close,
+.booking-modal-close {
+    position: absolute;
+    z-index: 5;
+    top: 18px;
+    right: 18px;
+    width: 45px;
+    height: 45px;
+    border: 1px solid rgba(255,255,255,.45);
+    background: rgba(0,0,0,.25);
+    color: white;
+    font-size: 27px;
+    font-weight: 300;
+    line-height: 1;
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease;
+}
+
+.room-modal-close:hover,
+.experience-modal-close:hover,
+.booking-modal-close:hover {
+    background: var(--gold);
+    color: var(--black);
+    transform: rotate(90deg);
+}
+
+.room-modal-image {
+    position: relative;
+    min-height: 650px;
+    overflow: hidden;
+    background: #222;
+}
+
+.room-modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.room-modal-image-label {
+    position: absolute;
+    left: 30px;
+    bottom: 25px;
+    color: white;
+    font-size: 7px;
+    letter-spacing: .25em;
+}
+
+.room-modal-content {
+    padding: 75px 55px 50px;
+    overflow-y: auto;
+}
+
+.room-modal-label {
+    color: var(--gold-dark);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .25em;
+}
+
+.room-modal-content h2 {
+    margin: 15px 0 20px;
+    font-family: var(--serif);
+    font-size: clamp(55px, 6vw, 82px);
+    font-weight: 400;
+    line-height: .85;
+    letter-spacing: -.04em;
+}
+
+.room-modal-content > p {
+    max-width: 450px;
+    color: #6e685f;
+    font-size: 12px;
+    line-height: 2;
+}
+
+.room-modal-specs {
+    margin: 38px 0;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+}
+
+.room-modal-specs div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.room-modal-specs span {
+    color: var(--muted);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .2em;
+}
+
+.room-modal-specs strong {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.room-amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 38px;
+}
+
+.room-amenities span {
+    padding: 9px 11px;
+    border: 1px solid var(--border);
+    color: #6e685f;
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .12em;
+}
+
+.room-modal-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    min-width: 230px;
+    padding: 17px 20px;
+    background: var(--black);
+    color: white;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    transition:
+        background .3s ease,
+        transform .3s ease;
+}
+
+.room-modal-button:hover {
+    background: var(--gold-dark);
+    transform: translateY(-3px);
+}
+
+
+/* =========================================
+   EXPERIENCE
+========================================= */
+
+.experience {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 800px;
+    background: var(--cream);
+}
+
+.experience-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.experience-image img {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.4s var(--ease);
+}
+
+.experience-image:hover img {
+    transform: scale(1.04);
+}
+
+.image-counter {
+    position: absolute;
+    left: 30px;
+    bottom: 25px;
+    color: white;
+    font-size: 7px;
+    letter-spacing: .2em;
+}
+
+.image-counter span {
+    color: var(--gold-light);
+}
+
+.experience-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 10%;
+}
+
+.experience-content h2 {
+    margin: 22px 0 28px;
+    font-family: var(--serif);
+    font-size: clamp(65px, 7vw, 105px);
+    font-weight: 400;
+    line-height: .79;
+    letter-spacing: -.045em;
+}
+
+.experience-content h2 em {
+    color: var(--gold-dark);
+}
+
+.experience-content p {
+    max-width: 440px;
+    margin-bottom: 32px;
+    color: #6e685f;
+    font-size: 12px;
+    line-height: 2;
+}
+
+
+/* =========================================
+   EXPERIENCE LIST
+========================================= */
+
+.experience-list {
+    padding: 115px 7%;
+    background: var(--deep-black);
+    color: white;
+}
+
+.experience-list-header {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.experience-list-header h2 {
+    max-width: 750px;
+    margin-top: 18px;
+    font-family: var(--serif);
+    font-size: clamp(50px, 6vw, 90px);
+    font-weight: 400;
+    line-height: .88;
+    letter-spacing: -.04em;
+}
+
+.experience-list-header h2 em {
+    color: var(--gold-light);
+}
+
+.experience-items {
+    max-width: 1200px;
+    margin: 70px auto 0;
+    border-top: 1px solid var(--dark-border);
+}
+
+.experience-item {
+    width: 100%;
+    min-height: 115px;
+    padding: 22px 5px;
+    display: grid;
+    grid-template-columns: 70px 1fr 1fr 40px;
+    gap: 20px;
+    align-items: center;
+    border: 0;
+    border-bottom: 1px solid var(--dark-border);
+    background: transparent;
+    color: white;
+    text-align: left;
+    transition:
+        background .4s ease,
+        padding .4s var(--ease);
+}
+
+.experience-item:hover {
+    padding-left: 18px;
+    padding-right: 18px;
+    background: rgba(197,164,109,.08);
+}
+
+.experience-item > span {
+    color: var(--gold);
+    font-family: var(--serif);
+    font-size: 20px;
+}
+
+.experience-item strong {
+    font-family: var(--serif);
+    font-size: 29px;
+    font-weight: 400;
+}
+
+.experience-item small {
+    color: rgba(255,255,255,.45);
+    font-size: 10px;
+}
+
+.experience-item b {
+    color: var(--gold);
+    font-size: 20px;
+    font-weight: 400;
+    transition: transform .4s ease;
+}
+
+.experience-item:hover b {
+    transform: rotate(45deg);
+}
+
+
+/* =========================================
+   EXPERIENCE MODAL
+========================================= */
+
+.experience-modal-box {
+    position: relative;
+    z-index: 2;
+    width: min(950px,100%);
+    background: var(--cream);
+    color: #151515;
+    display: grid;
+    grid-template-columns: 48% 52%;
+    overflow: hidden;
+    transform: translateY(30px) scale(.97);
+    transition: transform .6s var(--ease);
+}
+
+.experience-modal.active .experience-modal-box {
+    transform: translateY(0) scale(1);
+}
+
+.experience-modal-image {
+    min-height: 500px;
+    background: #222;
+}
+
+.experience-modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.experience-modal-content {
+    padding: 80px 55px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.experience-modal-content > span {
+    color: var(--gold-dark);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .25em;
+}
+
+.experience-modal-content h2 {
+    margin: 15px 0 22px;
+    font-family: var(--serif);
+    font-size: clamp(52px,6vw,80px);
+    font-weight: 400;
+    line-height: .85;
+}
+
+.experience-modal-content p {
+    margin-bottom: 30px;
+    color: #6e685f;
+    font-size: 12px;
+    line-height: 2;
+}
+
+.experience-modal-button {
+    width: fit-content;
+}
+
+
+/* =========================================
+   VISUAL BREAK
+========================================= */
+
+.visual-break {
+    position: relative;
+    min-height: 720px;
+    overflow: hidden;
+    color: white;
+    background: #111;
+}
+
+.visual-break > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 1.8s var(--ease);
+}
+
+.visual-break:hover > img {
+    transform: scale(1.035);
+}
+
+.visual-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.18),
+            rgba(0,0,0,.45)
+        );
+}
+
+.visual-content {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 40px;
+}
+
+.visual-content > span {
+    color: var(--gold-light);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .3em;
+}
+
+.visual-content h2 {
+    margin-top: 20px;
+    font-family: var(--serif);
+    font-size: clamp(70px, 10vw, 155px);
+    font-weight: 400;
+    line-height: .75;
+    letter-spacing: -.05em;
+    white-space: nowrap;
+}
+
+.visual-content h2 .pool-word {
+    display: inline-block;
+}
+
+.visual-content h2 em {
+    color: var(--gold-light);
+    font-weight: 400;
+}
+
+.visual-caption {
+    position: absolute;
+    z-index: 2;
+    left: 30px;
+    bottom: 25px;
+    color: rgba(255,255,255,.6);
+    font-size: 7px;
+    letter-spacing: .23em;
+}
+
+
+/* =========================================
+   DINING
+========================================= */
+
+.dining {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 760px;
+    background: var(--cream);
+}
+
+.dining-image {
+    overflow: hidden;
+}
+
+.dining-image img {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.3s var(--ease);
+}
+
+.dining-image:hover img {
+    transform: scale(1.045);
+}
+
+.dining-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 10%;
+}
+
+.dining-content h2 {
+    margin: 20px 0 28px;
+    font-family: var(--serif);
+    font-size: clamp(62px, 7vw, 105px);
+    font-weight: 400;
+    line-height: .82;
+    letter-spacing: -.05em;
+}
+
+.dining-content h2 em {
+    color: var(--gold-dark);
+}
+
+.dining-content p {
+    max-width: 450px;
+    color: #6e685f;
+    font-size: 12px;
+    line-height: 2;
+}
+
+.dining-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 30px 0;
+}
+
+.dining-features span {
+    padding: 9px 11px;
+    border: 1px solid var(--border);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .14em;
+}
+
+
+/* =========================================
+   WELLNESS
+========================================= */
+
+.wellness {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 750px;
+    background: var(--black);
+    color: white;
+}
+
+.wellness-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 100px 10%;
+}
+
+.wellness-content h2 {
+    margin: 20px 0 28px;
+    font-family: var(--serif);
+    font-size: clamp(65px,7vw,105px);
+    font-weight: 400;
+    line-height: .8;
+    letter-spacing: -.05em;
+}
+
+.wellness-content h2 em {
+    color: var(--gold-light);
+}
+
+.wellness-content p {
+    max-width: 440px;
+    margin-bottom: 34px;
+    color: rgba(255,255,255,.53);
+    font-size: 12px;
+    line-height: 2;
+}
+
+.wellness-image {
+    overflow: hidden;
+}
+
+.wellness-image img {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.3s var(--ease);
+}
+
+.wellness-image:hover img {
+    transform: scale(1.045);
+}
+
+
+/* =========================================
+   EVENTS
+========================================= */
+
+.events {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 720px;
+    background: var(--cream);
+}
+
+.events-image {
+    overflow: hidden;
+}
+
+.events-image img {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.3s var(--ease);
+}
+
+.events-image:hover img {
+    transform: scale(1.045);
+}
+
+.events-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 100px 10%;
+}
+
+.events-content h2 {
+    margin: 20px 0 28px;
+    font-family: var(--serif);
+    font-size: clamp(65px,7vw,105px);
+    font-weight: 400;
+    line-height: .8;
+    letter-spacing: -.05em;
+}
+
+.events-content h2 em {
+    color: var(--gold-dark);
+}
+
+.events-content p {
+    max-width: 440px;
+    margin-bottom: 32px;
+    color: #6e685f;
+    font-size: 12px;
+    line-height: 2;
+}
+
+
+/* =========================================
+   LOBBY
+========================================= */
+
+.lobby {
+    position: relative;
+    min-height: 720px;
+    overflow: hidden;
+    background: #111;
+    color: white;
+}
+
+.lobby > img {
+    width: 100%;
+    height: 100%;
+    min-height: 720px;
+    object-fit: cover;
+    transition: transform 1.6s var(--ease);
+}
+
+.lobby:hover > img {
+    transform: scale(1.035);
+}
+
+.lobby-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.43);
+}
+
+.lobby-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.lobby-content > span {
+    color: var(--gold-light);
+    font-size: 8px;
+    letter-spacing: .3em;
+}
+
+.lobby-content h2 {
+    margin: 15px 0 12px;
+    font-family: var(--serif);
+    font-size: clamp(75px,10vw,145px);
+    font-weight: 400;
+    line-height: .72;
+    letter-spacing: -.05em;
+}
+
+.lobby-content h2 em {
+    color: var(--gold-light);
+}
+
+.lobby-content p {
+    color: rgba(255,255,255,.7);
+    font-size: 10px;
+    letter-spacing: .2em;
+}
+
+
+/* =========================================
+   RESERVATION
+========================================= */
+
+.reservation {
+    padding: 105px 7% 120px;
+    background: var(--warm-white);
+}
+
+.reservation-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--border);
+}
+
+.reservation-note {
+    color: var(--muted);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .25em;
+}
+
+.reservation-grid {
+    max-width: 1250px;
+    margin: 90px auto 0;
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    gap: 10%;
+}
+
+.reservation-kicker {
+    color: var(--gold-dark);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .25em;
+}
+
+.reservation-title h2 {
+    margin: 22px 0 25px;
+    font-family: var(--serif);
+    font-size: clamp(60px,7vw,100px);
+    font-weight: 400;
+    line-height: .8;
+    letter-spacing: -.05em;
+}
+
+.reservation-title h2 em {
+    color: var(--gold-dark);
+}
+
+.reservation-title > p {
+    color: #6e685f;
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+.reservation-benefits {
+    margin-top: 50px;
+    border-top: 1px solid var(--border);
+}
+
+.reservation-benefits div {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.reservation-benefits span {
+    color: var(--gold-dark);
+    font-family: var(--serif);
+    font-size: 18px;
+}
+
+.reservation-benefits strong {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   BOOKING FORM
+========================================= */
+
+.booking-form {
+    padding: 38px;
+    border: 1px solid var(--border);
+    background: #f8f5ef;
+    box-shadow: 0 30px 80px rgba(20,15,8,.07);
+}
+
+.form-heading {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.form-heading span {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .2em;
+}
+
+.form-heading small {
+    color: var(--gold-dark);
+    font-size: 7px;
+    letter-spacing: .16em;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+    margin-bottom: 23px;
+}
+
+.form-field {
+    min-width: 0;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 9px;
+    color: var(--muted);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .2em;
+}
+
+.form-field input,
+.form-field select {
+    width: 100%;
+    height: 52px;
+    padding: 0 15px;
+    border: 1px solid rgba(21,21,21,.18);
+    border-radius: 0;
+    outline: none;
+    background: rgba(255,255,255,.42);
+    color: #20201d;
+    font-size: 11px;
+    transition:
+        border-color .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+.form-field input::placeholder {
+    color: #a19a8e;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    border-color: var(--gold);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(197,164,109,.1);
+}
+
+
+/* =========================================
+   DEPOSIT
+========================================= */
+
+.deposit-card {
+    margin-top: 7px;
+    margin-bottom: 24px;
+    padding: 17px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid rgba(197,164,109,.5);
+    background: rgba(197,164,109,.08);
+}
+
+.deposit-icon {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.deposit-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.deposit-copy span {
+    color: var(--gold-dark);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .15em;
+}
+
+.deposit-copy strong {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.deposit-copy small {
+    color: var(--muted);
+    font-size: 8px;
+}
+
+.test-badge {
+    margin-left: auto;
+    padding: 6px 8px;
+    border: 1px solid rgba(197,164,109,.45);
+    color: var(--gold-dark);
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: .15em;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   PAYMENT METHOD
+========================================= */
+
+.payment-methods {
+    margin-bottom: 24px;
+}
+
+.payment-label {
+    display: block;
+    margin-bottom: 9px;
+    color: var(--muted);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .2em;
+}
+
+.payment-option {
+    min-height: 62px;
+    padding: 10px 15px;
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    background: white;
+}
+
+.payment-radio {
+    width: 15px;
+    height: 15px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    position: relative;
+}
+
+.payment-radio::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--gold);
+}
+
+.payment-option div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.payment-option strong {
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.payment-option small {
+    color: var(--muted);
+    font-size: 7px;
+}
+
+.mpesa-mark {
+    width: 31px;
+    height: 31px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #333;
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.reserve-submit {
+    width: 100%;
+    min-height: 57px;
+    border: 1px solid var(--black);
+    background: var(--black);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    transition:
+        background .35s ease,
+        transform .35s var(--ease);
+}
+
+.reserve-submit span {
+    font-size: 17px;
+    transition: transform .3s ease;
+}
+
+.reserve-submit:hover {
+    background: var(--gold-dark);
+    border-color: var(--gold-dark);
+    transform: translateY(-3px);
+}
+
+.reserve-submit:hover span {
+    transform: translateX(5px);
+}
+
+.form-note {
+    margin-top: 13px;
+    color: var(--muted);
+    font-size: 7px;
+    line-height: 1.7;
+}
+
+.form-note span {
+    color: var(--gold-dark);
+    margin-right: 5px;
+}
+
+
+/* =========================================
+   BOOKING MODAL
+========================================= */
+
+.booking-modal-box {
+    position: relative;
+    z-index: 2;
+    width: min(620px,100%);
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 58px 48px 42px;
+    background: var(--cream);
+    color: #151515;
+    text-align: center;
+    transform: translateY(30px) scale(.97);
+    transition: transform .6s var(--ease);
+}
+
+.booking-modal.active .booking-modal-box {
+    transform: translateY(0) scale(1);
+}
+
+.booking-modal-mark {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 18px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-dark);
+    font-family: var(--serif);
+    font-size: 28px;
+}
+
+.booking-modal-label {
+    color: var(--gold-dark);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .25em;
+}
+
+.booking-modal-box h2 {
+    margin: 14px 0 18px;
+    font-family: var(--serif);
+    font-size: clamp(52px,7vw,76px);
+    font-weight: 400;
+    line-height: .82;
+}
+
+.booking-modal-box h2 em {
+    color: var(--gold-dark);
+}
+
+.booking-modal-message {
+    max-width: 450px;
+    margin: auto;
+    color: #6e685f;
+    font-size: 11px;
+    line-height: 1.9;
+}
+
+.booking-summary {
+    margin: 30px 0 15px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    text-align: left;
+}
+
+.booking-summary div {
+    min-height: 80px;
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.booking-summary div:nth-child(odd) {
+    border-right: 1px solid var(--border);
+}
+
+.booking-summary div:nth-last-child(-n+2) {
+    border-bottom: 0;
+}
+
+.booking-summary span {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--muted);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .15em;
+}
+
+.booking-summary strong {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.payment-review {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    background: var(--black);
+    color: white;
+    text-align: left;
+}
+
+.payment-review div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.payment-review span {
+    color: var(--gold-light);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .16em;
+}
+
+.payment-review strong {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.payment-review small {
+    color: rgba(255,255,255,.45);
+    font-size: 7px;
+}
+
+.payment-test-notice {
+    margin: 13px 0 20px;
+    padding: 11px 13px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    background: rgba(197,164,109,.1);
+    text-align: left;
+}
+
+.payment-test-notice span {
+    color: var(--gold-dark);
+    font-size: 7px;
+    font-weight: 800;
+}
+
+.payment-test-notice p {
+    color: var(--muted);
+    font-size: 7px;
+    line-height: 1.6;
+}
+
+.booking-modal-button {
+    width: 100%;
+    min-height: 54px;
+    border: 1px solid var(--black);
+    background: var(--black);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    transition:
+        background .3s ease,
+        transform .3s ease;
+}
+
+.booking-modal-button span {
+    font-size: 16px;
+}
+
+.booking-modal-button:hover {
+    background: var(--gold-dark);
+    border-color: var(--gold-dark);
+    transform: translateY(-2px);
+}
+
+.booking-modal-secondary {
+    margin-top: 15px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.booking-modal-secondary:hover {
+    color: var(--black);
+}
+
+
+/* =========================================
+   PAYMENT SUCCESS
+========================================= */
+
+.payment-success-box {
+    position: relative;
+    z-index: 2;
+    width: min(500px,100%);
+    padding: 55px 45px 45px;
+    background: var(--cream);
+    text-align: center;
+    transform: translateY(30px) scale(.97);
+    transition: transform .6s var(--ease);
+}
+
+.payment-success-modal.active .payment-success-box {
+    transform: translateY(0) scale(1);
+}
+
+.success-ring {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-dark);
+    font-family: var(--serif);
+    font-size: 35px;
+}
+
+.payment-success-box > span {
+    color: var(--gold-dark);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .22em;
+}
+
+.payment-success-box h2 {
+    margin: 17px 0 17px;
+    font-family: var(--serif);
+    font-size: 65px;
+    font-weight: 400;
+    line-height: .8;
+}
+
+.payment-success-box h2 em {
+    color: var(--gold-dark);
+}
+
+.payment-success-box > p {
+    color: #6e685f;
+    font-size: 11px;
+    line-height: 1.9;
+}
+
+.success-reference {
+    margin: 25px 0;
+    padding: 14px;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.success-reference small {
+    color: var(--muted);
+    font-size: 7px;
+    letter-spacing: .15em;
+}
+
+.success-reference strong {
+    font-family: var(--serif);
+    font-size: 21px;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    background: var(--black);
+    color: white;
+    padding: 85px 7% 25px;
+}
+
+.footer-main {
+    max-width: 1250px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.7fr .7fr .7fr 1fr;
+    gap: 60px;
+}
+
+.footer-brand span {
+    font-size: 10px;
+    letter-spacing: .2em;
+}
+
+.footer-brand h2 {
+    margin-top: 3px;
+    font-family: var(--serif);
+    font-size: 54px;
+    font-weight: 400;
+    line-height: .75;
+}
+
+.footer-brand p {
+    margin-top: 22px;
+    color: var(--gold-light);
+    font-size: 8px;
+    letter-spacing: .16em;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.footer-column > span {
+    margin-bottom: 10px;
+    color: var(--gold);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .2em;
+}
+
+.footer-column a,
+.footer-column p {
+    color: rgba(255,255,255,.53);
+    font-size: 9px;
+    line-height: 1.6;
+    transition: color .3s ease;
+}
+
+.footer-column a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    max-width: 1250px;
+    margin: 70px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--dark-border);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    color: rgba(255,255,255,.35);
+    font-size: 7px;
+    letter-spacing: .12em;
+}
+
+.footer-bottom span:nth-child(2) {
+    text-align: center;
+}
+
+.footer-bottom span:last-child {
+    text-align: right;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .nav-inner {
+        width: min(92%, var(--container));
+    }
+
+    .desktop-nav {
+        gap: 17px;
+    }
+
+    .hero-content {
+        right: 6%;
+        width: 53%;
+    }
+
+    .rooms-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .room-card-large {
+        margin-top: 0;
+    }
+
+    .room-card:last-child {
+        grid-column: 1 / -1;
+        max-width: calc(50% - 11px);
+    }
+
+    .experience {
+        min-height: 650px;
+    }
+
+    .dining,
+    .wellness,
+    .events {
+        min-height: 650px;
+    }
+
+    .footer-main {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .desktop-nav {
+        display: none;
+    }
+
+    .menu-button {
+        display: flex;
+    }
+
+    .nav-inner {
+        min-height: 82px;
+        width: calc(100% - 40px);
+    }
+
+    .navbar.scrolled .nav-inner {
+        min-height: 72px;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        min-height: 100svh;
+        height: 100svh;
+    }
+
+    .hero-image {
+        background-position: 57% center;
+    }
+
+    .hero-dark {
+        background:
+            linear-gradient(
+                180deg,
+                rgba(0,0,0,.28),
+                rgba(0,0,0,.2) 35%,
+                rgba(0,0,0,.72) 100%
+            );
+    }
+
+    .hero-content {
+        top: auto;
+        right: auto;
+        bottom: 130px;
+        left: 25px;
+        width: calc(100% - 50px);
+        transform: none;
+    }
+
+    @keyframes heroContent {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .hero-eyebrow {
+        max-width: 330px;
+        font-size: 7px;
+    }
+
+    .hero h1 {
+        margin: 18px 0;
+        font-size: clamp(66px, 19vw, 100px);
+        line-height: .74;
+    }
+
+    .hero h1 em {
+        margin-left: 11%;
+    }
+
+    .hero-content > p {
+        max-width: 330px;
+        font-size: 11px;
+        line-height: 1.8;
+    }
+
+    .hero-actions {
+        gap: 20px;
+        margin-top: 25px;
+        flex-wrap: wrap;
+    }
+
+    .gold-button {
+        min-height: 48px;
+        padding: 0 17px;
+        gap: 18px;
+        font-size: 8px;
+    }
+
+    .hero-bottom {
+        left: 25px;
+        right: 25px;
+        bottom: 25px;
+        grid-template-columns: 1fr auto;
+    }
+
+    .scroll-down {
+        display: none;
+    }
+
+    .hero-number {
+        font-size: 17px;
+    }
+
+
+    /* INTRO */
+
+    .intro {
+        padding: 85px 25px 70px;
+    }
+
+    .intro-top {
+        gap: 15px;
+    }
+
+    .intro-top .section-label:last-child {
+        display: none;
+    }
+
+    .intro-grid {
+        margin-top: 75px;
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .floating-number {
+        right: 0;
+        top: -35px;
+        font-size: 65px;
+    }
+
+    .intro h2 {
+        font-size: clamp(57px, 16vw, 82px);
+    }
+
+    .large-copy {
+        font-size: 25px;
+    }
+
+    .intro-copy > p:not(.large-copy) {
+        font-size: 11px;
+        line-height: 1.9;
+    }
+
+    .intro-signature {
+        margin-top: 65px;
+    }
+
+
+    /* ROOMS */
+
+    .rooms {
+        padding: 85px 20px 90px;
+    }
+
+    .rooms-header {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        margin-bottom: 45px;
+    }
+
+    .rooms-header h2 {
+        font-size: clamp(55px, 16vw, 82px);
+    }
+
+    .rooms-header > p {
+        font-size: 11px;
+    }
+
+    .rooms-grid {
+        grid-template-columns: 1fr;
+        gap: 55px;
+    }
+
+    .room-card:last-child {
+        grid-column: auto;
+        max-width: none;
+    }
+
+    .room-image,
+    .room-card-large .room-image {
+        height: min(125vw, 530px);
+    }
+
+    .room-details {
+        padding-top: 20px;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .room-details h3 {
+        font-size: 29px;
+    }
+
+    .room-details p {
+        font-size: 10px;
+    }
+
+    .room-explore {
+        align-self: flex-start;
+    }
+
+    .room-image-arrow {
+        opacity: 1;
+        transform: none;
+    }
+
+
+    /* ROOM MODAL */
+
+    .room-modal {
+        padding: 15px;
+        align-items: center;
+    }
+
+    .room-modal-box {
+        max-height: 94svh;
+        display: block;
+        overflow-y: auto;
+    }
+
+    .room-modal-image {
+        height: 46svh;
+        min-height: 270px;
+    }
+
+    .room-modal-content {
+        padding: 35px 25px 30px;
+    }
+
+    .room-modal-content h2 {
+        font-size: clamp(50px, 14vw, 70px);
+    }
+
+    .room-modal-content > p {
+        font-size: 11px;
+    }
+
+    .room-modal-specs {
+        margin: 28px 0;
+    }
+
+    .room-modal-specs strong {
+        font-size: 17px;
+    }
+
+    .room-amenities {
+        margin-bottom: 28px;
+    }
+
+    .room-modal-button {
+        width: 100%;
+    }
+
+
+    /* EXPERIENCE */
+
+    .experience {
+        display: flex;
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .experience-image {
+        height: 72vw;
+        min-height: 330px;
+    }
+
+    .experience-content {
+        padding: 75px 25px 85px;
+    }
+
+    .experience-content h2 {
+        font-size: clamp(60px, 17vw, 88px);
+    }
+
+    .experience-content p {
+        font-size: 11px;
+    }
+
+
+    /* EXPERIENCE LIST */
+
+    .experience-list {
+        padding: 80px 20px;
+    }
+
+    .experience-list-header h2 {
+        font-size: clamp(50px, 15vw, 75px);
+    }
+
+    .experience-items {
+        margin-top: 45px;
+    }
+
+    .experience-item {
+        min-height: 105px;
+        grid-template-columns: 38px 1fr 25px;
+        gap: 12px;
+    }
+
+    .experience-item small {
+        display: none;
+    }
+
+    .experience-item strong {
+        font-size: 25px;
+    }
+
+
+    /* EXPERIENCE MODAL */
+
+    .experience-modal {
+        padding: 15px;
+    }
+
+    .experience-modal-box {
+        display: block;
+        max-height: 94svh;
+        overflow-y: auto;
+    }
+
+    .experience-modal-image {
+        height: 38svh;
+        min-height: 250px;
+    }
+
+    .experience-modal-content {
+        padding: 35px 25px 30px;
+    }
+
+    .experience-modal-content h2 {
+        font-size: 58px;
+    }
+
+    .experience-modal-button {
+        width: 100%;
+    }
+
+
+    /* VISUAL */
+
+    .visual-break {
+        min-height: 590px;
+    }
+
+    .visual-break > img {
+        object-position: center;
+    }
+
+    .visual-content {
+        padding: 30px 20px;
+    }
+
+    .visual-content > span {
+        font-size: 7px;
+        letter-spacing: .22em;
+    }
+
+    .visual-content h2 {
+        width: 100%;
+        white-space: normal;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 3px;
+        font-size: clamp(66px, 18vw, 105px);
+        line-height: .73;
+    }
+
+    .visual-content h2 .pool-word {
+        display: block;
+        white-space: nowrap;
+    }
+
+    .visual-content h2 em {
+        display: block;
+        white-space: nowrap;
+    }
+
+    .visual-caption {
+        left: 20px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 6px;
+    }
+
+
+    /* DINING */
+
+    .dining,
+    .wellness,
+    .events {
+        display: flex;
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .dining-image,
+    .wellness-image,
+    .events-image {
+        height: 75vw;
+        min-height: 330px;
+        max-height: 550px;
+    }
+
+    .dining-content,
+    .wellness-content,
+    .events-content {
+        padding: 75px 25px 85px;
+    }
+
+    .dining-content h2,
+    .wellness-content h2,
+    .events-content h2 {
+        font-size: clamp(60px, 17vw, 90px);
+    }
+
+    .dining-content p,
+    .wellness-content p,
+    .events-content p {
+        font-size: 11px;
+    }
+
+    .wellness {
+        flex-direction: column-reverse;
+    }
+
+
+    /* LOBBY */
+
+    .lobby,
+    .lobby > img {
+        min-height: 600px;
+    }
+
+    .lobby-content {
+        padding: 25px;
+    }
+
+    .lobby-content h2 {
+        font-size: clamp(70px, 20vw, 110px);
+    }
+
+
+    /* RESERVATION */
+
+    .reservation {
+        padding: 80px 20px 90px;
+    }
+
+    .reservation-top {
+        padding-bottom: 20px;
+    }
+
+    .reservation-note {
+        display: none;
+    }
+
+    .reservation-grid {
+        margin-top: 65px;
+        grid-template-columns: 1fr;
+        gap: 55px;
+    }
+
+    .reservation-title h2 {
+        font-size: clamp(57px, 16vw, 83px);
+    }
+
+    .reservation-title > p {
+        font-size: 11px;
+    }
+
+    .booking-form {
+        padding: 23px 18px;
+    }
+
+    .form-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 19px;
+        margin-bottom: 19px;
+    }
+
+    .deposit-card {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .deposit-copy {
+        flex: 1;
+    }
+
+    .test-badge {
+        width: 100%;
+        margin-left: 57px;
+        margin-top: -4px;
+        width: fit-content;
+    }
+
+
+    /* BOOKING MODAL */
+
+    .booking-modal {
+        padding: 15px;
+    }
+
+    .booking-modal-box {
+        padding: 45px 20px 25px;
+        max-height: 94svh;
+    }
+
+    .booking-modal-box h2 {
+        font-size: clamp(48px, 15vw, 70px);
+    }
+
+    .booking-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-summary div {
+        min-height: 65px;
+        border-right: 0 !important;
+    }
+
+    .booking-summary div:nth-last-child(-n+2) {
+        border-bottom: 1px solid var(--border);
+    }
+
+    .booking-summary div:last-child {
+        border-bottom: 0;
+    }
+
+    .payment-review {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+
+    /* PAYMENT SUCCESS */
+
+    .payment-success-modal {
+        padding: 15px;
+    }
+
+    .payment-success-box {
+        padding: 45px 22px 30px;
+    }
+
+    .payment-success-box h2 {
+        font-size: 60px;
+    }
+
+
+    /* FOOTER */
+
+    footer {
+        padding: 70px 25px 25px;
+    }
+
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 45px 25px;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+
+    .footer-brand h2 {
+        font-size: 48px;
+    }
+
+    .footer-bottom {
+        margin-top: 55px;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        line-height: 1.5;
+    }
+
+    .footer-bottom span,
+    .footer-bottom span:nth-child(2),
+    .footer-bottom span:last-child {
+        text-align: left;
+    }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 380px) {
+
+    .hero-content {
+        bottom: 115px;
+    }
+
+    .hero h1 {
+        font-size: 61px;
+    }
+
+    .hero-content > p {
+        font-size: 10px;
+    }
+
+    .hero-actions {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .gold-button {
+        width: auto;
+    }
+
+    .rooms {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .room-image,
+    .room-card-large .room-image {
+        height: 118vw;
+    }
+
+    .visual-break {
+        min-height: 520px;
+    }
+
+    .visual-content h2 {
+        font-size: 61px;
+    }
+
+    .booking-form {
+        padding: 20px 14px;
+    }
+
+    .deposit-card {
+        padding: 13px;
+    }
+
+    .deposit-copy strong {
+        font-size: 21px;
+    }
+
+    .footer-main {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-brand {
+        grid-column: auto;
+    }
+
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+}
+/* =========================================
+   PAYMENT METHODS
+========================================= */
+
+.payment-section {
+    margin-top: 10px;
+    padding: 28px;
+    background: #f7f4ee;
+    border: 1px solid rgba(21, 21, 21, 0.12);
+}
+
+.payment-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 24px;
+}
+
+.payment-eyebrow {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #817c73;
+}
+
+.payment-heading h3 {
+    margin: 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: #0b0b0a;
+}
+
+.payment-total {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.payment-total span {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #817c73;
+}
+
+.payment-total strong {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 25px;
+    font-weight: 600;
+    color: #0b0b0a;
+}
+
+
+/* PAYMENT OPTIONS */
+
+.payment-methods {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.payment-method {
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.payment-method input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.payment-method-content {
+    min-height: 92px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 17px 18px;
+    background: #ffffff;
+    border: 1px solid rgba(21, 21, 21, 0.14);
+    transition:
+        border-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.payment-method:hover .payment-method-content {
+    transform: translateY(-2px);
+    border-color: #c5a46d;
+}
+
+.payment-method input:checked + .payment-method-content {
+    border-color: #c5a46d;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+
+/* PAYMENT ICON */
+
+.payment-icon {
+    width: 55px;
+    height: 55px;
+    flex: 0 0 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: 900;
+
+    color: #ffffff;
+}
+
+
+/* M-PESA */
+
+.mpesa-icon {
+    background: #00a859;
+}
+
+.mpesa-icon span {
+    font-size: 28px;
+    font-weight: 900;
+}
+
+
+/* AIRTEL */
+
+.airtel-icon {
+    background: #e30613;
+}
+
+.airtel-icon span {
+    font-size: 29px;
+    font-weight: 900;
+}
+
+
+/* PAYMENT TEXT */
+
+.payment-method-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.payment-method-text strong {
+    display: block;
+    margin-bottom: 5px;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #0b0b0a;
+}
+
+.payment-method-text small {
+    display: block;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    line-height: 1.5;
+
+    color: #817c73;
+}
+
+
+/* CHECK */
+
+.payment-check {
+    width: 21px;
+    height: 21px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(21, 21, 21, 0.18);
+    border-radius: 50%;
+
+    font-size: 11px;
+    color: transparent;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.payment-method input:checked + .payment-method-content .payment-check {
+    background: #c5a46d;
+    border-color: #c5a46d;
+    color: #ffffff;
+}
+
+
+/* PAYMENT NOTE */
+
+.payment-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    margin-top: 18px;
+    padding-top: 17px;
+
+    border-top: 1px solid rgba(21, 21, 21, 0.1);
+}
+
+.payment-lock {
+    color: #c5a46d;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.payment-note p {
+    margin: 0;
+
+    font-size: 10px;
+    line-height: 1.6;
+
+    color: #817c73;
+}
+
+.payment-note strong {
+    color: #0b0b0a;
+}
+
+
+/* =========================================
+   MOBILE PAYMENT
+========================================= */
+
+@media (max-width: 650px) {
+
+    .payment-section {
+        padding: 20px 16px;
+    }
+
+    .payment-heading {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .payment-heading h3 {
+        font-size: 25px;
+        line-height: 1.15;
+    }
+
+    .payment-total {
+        margin-top: 14px;
+        text-align: left;
+    }
+
+    .payment-methods {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .payment-method-content {
+        min-height: 82px;
+        padding: 14px;
+    }
+
+    .payment-icon {
+        width: 48px;
+        height: 48px;
+        flex-basis: 48px;
+        border-radius: 10px;
+    }
+
+    .mpesa-icon span,
+    .airtel-icon span {
+        font-size: 24px;
+    }
+
+    .payment-method-text strong {
+        font-size: 12px;
+    }
+
+    .payment-method-text small {
+        font-size: 9px;
+    }
+
+    .payment-note {
+        margin-top: 15px;
+    }
+}
+/* =========================================================
+   AIKEN'S PALACE — PAYMENT LOGO & PAYMENT CARD POLISH
+   ADD THIS AT THE VERY BOTTOM OF style.css
+========================================================= */
+
+/* Payment section */
+.payment-section {
+    position: relative;
+    margin-top: 45px;
+    padding: 40px;
+    background: #11110f;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    color: #f3efe8;
+}
+
+/* Small gold line at the top */
+.payment-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #c5a46d,
+        transparent
+    );
+}
+
+/* Payment heading */
+.payment-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.payment-eyebrow {
+    display: block;
+    margin-bottom: 10px;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+
+    color: #c5a46d;
+}
+
+.payment-heading h3 {
+    margin: 0;
+
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    font-weight: 400;
+    line-height: 0.85;
+    color: #f3efe8;
+}
+
+.payment-total {
+    flex-shrink: 0;
+    text-align: right;
+}
+
+.payment-total span {
+    display: block;
+    margin-bottom: 5px;
+
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+
+    color: #b4aea3;
+}
+
+.payment-total strong {
+    display: block;
+
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 34px;
+    font-weight: 500;
+
+    color: #c5a46d;
+}
+
+
+/* =========================================================
+   PAYMENT METHODS
+========================================================= */
+
+.payment-methods {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+
+    margin-bottom: 20px;
+}
+
+.payment-method {
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.payment-method input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Main payment card */
+.payment-method-content {
+    position: relative;
+
+    min-height: 100px;
+
+    display: flex;
+    align-items: center;
+    gap: 17px;
+
+    padding: 18px 20px;
+
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+
+    transition:
+        border-color 0.35s ease,
+        background 0.35s ease,
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+/* Hover */
+.payment-method:hover .payment-method-content {
+    border-color: rgba(197, 164, 109, 0.65);
+    background: rgba(255, 255, 255, 0.045);
+    transform: translateY(-2px);
+}
+
+/* Selected */
+.payment-method input:checked + .payment-method-content {
+    border-color: #c5a46d;
+    background: rgba(197, 164, 109, 0.08);
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.18),
+        inset 0 0 0 1px rgba(197, 164, 109, 0.08);
+}
+
+
+/* =========================================================
+   PAYMENT LOGO BOX
+========================================================= */
+
+.payment-icon {
+    width: 58px;
+    height: 58px;
+
+    flex: 0 0 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.22);
+
+    transition: transform 0.3s ease;
+}
+
+.payment-method:hover .payment-icon {
+    transform: scale(1.04);
+}
+
+
+/* =========================================================
+   ACTUAL LOGO IMAGE SUPPORT
+========================================================= */
+
+.payment-icon img,
+.payment-logo {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 7px;
+
+    object-fit: contain;
+}
+
+
+/* M-PESA logo */
+.mpesa-icon {
+    background: #ffffff;
+}
+
+/* Airtel Money logo */
+.airtel-icon {
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   IF YOUR CURRENT HTML STILL USES M / A SYMBOLS
+========================================================= */
+
+.mpesa-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    background: #00a651;
+
+    color: #ffffff;
+
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.airtel-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    background: #e30613;
+
+    color: #ffffff;
+
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   PAYMENT TEXT
+========================================================= */
+
+.payment-method-text {
+    min-width: 0;
+    flex: 1;
+}
+
+.payment-method-text strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #f3efe8;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.payment-method-text span,
+.payment-method-text small {
+    display: block;
+
+    color: #b4aea3;
+
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   PAYMENT CHECK CIRCLE
+========================================================= */
+
+.payment-check {
+    width: 22px;
+    height: 22px;
+
+    flex: 0 0 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.30);
+    border-radius: 50%;
+
+    color: transparent;
+
+    font-size: 10px;
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease;
+}
+
+.payment-method input:checked
++ .payment-method-content
+.payment-check {
+    background: #c5a46d;
+    border-color: #c5a46d;
+    color: #0b0b0a;
+}
+
+
+/* =========================================================
+   PAYMENT NOTE
+========================================================= */
+
+.payment-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    margin-top: 18px;
+    padding-top: 18px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    color: #b4aea3;
+
+    font-size: 9px;
+    line-height: 1.7;
+}
+
+.payment-note::before {
+    content: "✓";
+
+    flex-shrink: 0;
+
+    color: #c5a46d;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   PAYMENT SECURITY
+========================================================= */
+
+.payment-security {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-top: 20px;
+
+    color: #817c73;
+
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.payment-security::before {
+    content: "◈";
+
+    color: #c5a46d;
+}
+
+
+/* =========================================================
+   OLD PAYMENT OPTION SUPPORT
+   Keeps your previous HTML working
+========================================================= */
+
+.payment-option {
+    position: relative;
+
+    min-height: 62px;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 13px 16px;
+
+    margin-bottom: 10px;
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+
+    background: rgba(255, 255, 255, 0.025);
+
+    color: #f3efe8;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.3s ease,
+        background 0.3s ease;
+}
+
+.payment-option:hover {
+    border-color: rgba(197, 164, 109, 0.60);
+}
+
+.payment-option:has(.payment-radio:checked) {
+    border-color: #c5a46d;
+    background: rgba(197, 164, 109, 0.08);
+}
+
+
+/* Radio button */
+.payment-radio {
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 18px;
+    height: 18px;
+
+    flex: 0 0 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+
+.payment-radio:checked {
+    border-color: #c5a46d;
+}
+
+.payment-radio:checked::after {
+    content: "";
+
+    display: block;
+
+    width: 8px;
+    height: 8px;
+
+    margin: 4px;
+
+    border-radius: 50%;
+
+    background: #c5a46d;
+}
+
+
+/* =========================================================
+   OLD LOGO MARKS
+========================================================= */
+
+.mpesa-mark,
+.airtel-mark {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 8px;
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.mpesa-mark {
+    background: #00a651;
+}
+
+.airtel-mark {
+    background: #e30613;
+}
+
+
+/* =========================================================
+   MOBILE PAYMENT LAYOUT
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .payment-section {
+        margin-top: 40px;
+        padding: 28px 20px;
+    }
+
+    .payment-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
+
+        margin-bottom: 25px;
+    }
+
+    .payment-heading h3 {
+        font-size: 46px;
+    }
+
+    .payment-total {
+        text-align: left;
+    }
+
+    .payment-total strong {
+        font-size: 30px;
+    }
+
+    .payment-methods {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .payment-method-content {
+        min-height: 88px;
+        padding: 15px;
+        gap: 13px;
+    }
+
+    .payment-icon {
+        width: 50px;
+        height: 50px;
+        flex-basis: 50px;
+    }
+
+    .payment-method-text strong {
+        font-size: 11px;
+    }
+
+    .payment-method-text span,
+    .payment-method-text small {
+        font-size: 8px;
+    }
+
+    .payment-check {
+        width: 20px;
+        height: 20px;
+        flex-basis: 20px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .payment-section {
+        padding: 24px 15px;
+    }
+
+    .payment-heading h3 {
+        font-size: 40px;
+    }
+
+    .payment-method-content {
+        padding: 13px;
+        gap: 10px;
+    }
+
+    .payment-icon {
+        width: 45px;
+        height: 45px;
+        flex-basis: 45px;
+    }
+
+    .payment-method-text strong {
+        font-size: 10px;
+    }
+
+    .payment-method-text span,
+    .payment-method-text small {
+        font-size: 7.5px;
+    }
+
+    .payment-check {
+        width: 18px;
+        height: 18px;
+        flex-basis: 18px;
+    }
+}
+/* =========================================================
+   AIKEN'S PALACE
+   LUXURY PAYMENT SELECTOR
+   PREMIUM / SPACIOUS / BALANCED
+========================================================= */
+
+/* PAYMENT OPTIONS CONTAINER */
+.payment-methods {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 20px !important;
+
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    align-items: stretch !important;
+}
+
+/* =========================================================
+   PAYMENT CARD
+========================================================= */
+
+.payment-method {
+    position: relative !important;
+
+    display: block !important;
+
+    width: 100% !important;
+    height: 112px !important;
+    min-height: 112px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    cursor: pointer !important;
+}
+
+/* HIDE ORIGINAL RADIO */
+.payment-method > input {
+    position: absolute !important;
+
+    width: 1px !important;
+    height: 1px !important;
+
+    opacity: 0 !important;
+
+    pointer-events: none !important;
+}
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.payment-method-content {
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    width: 100% !important;
+    height: 112px !important;
+    min-height: 112px !important;
+
+    margin: 0 !important;
+    padding: 18px 20px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.045),
+            rgba(255,255,255,0.015)
+        ) !important;
+
+    border: 1px solid rgba(255,255,255,0.12) !important;
+
+    border-radius: 4px !important;
+
+    overflow: hidden !important;
+
+    transition:
+        border-color 0.4s ease,
+        background 0.4s ease,
+        box-shadow 0.4s ease,
+        transform 0.4s cubic-bezier(.22,1,.36,1) !important;
+}
+
+/* SUBTLE GOLD EDGE */
+.payment-method-content::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+
+    width: 2px !important;
+
+    background: transparent !important;
+
+    transition: background 0.4s ease !important;
+}
+
+/* HOVER */
+.payment-method:hover .payment-method-content {
+    transform: translateY(-3px) !important;
+
+    border-color: rgba(197,164,109,0.38) !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(197,164,109,0.075),
+            rgba(255,255,255,0.018)
+        ) !important;
+
+    box-shadow:
+        0 14px 35px rgba(0,0,0,0.16) !important;
+}
+
+/* SELECTED */
+.payment-method > input:checked + .payment-method-content {
+    border-color: var(--gold) !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(197,164,109,0.10),
+            rgba(255,255,255,0.025)
+        ) !important;
+
+    box-shadow:
+        0 16px 38px rgba(0,0,0,0.20),
+        inset 0 0 0 1px rgba(197,164,109,0.08) !important;
+}
+
+.payment-method > input:checked + .payment-method-content::before {
+    background: var(--gold) !important;
+}
+
+/* =========================================================
+   LOGO CONTAINER
+========================================================= */
+
+.payment-icon {
+    position: relative !important;
+
+    flex: 0 0 66px !important;
+
+    width: 66px !important;
+    height: 66px !important;
+
+    min-width: 66px !important;
+    min-height: 66px !important;
+
+    max-width: 66px !important;
+    max-height: 66px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 20px 0 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 5px !important;
+
+    overflow: hidden !important;
+}
+
+/* M-PESA */
+.payment-icon.mpesa-icon {
+    background: #00a859 !important;
+}
+
+/* AIRTEL */
+.payment-icon.airtel-icon {
+    background: #e30613 !important;
+}
+
+/* LOGO */
+.payment-logo {
+    display: block !important;
+
+    width: 46px !important;
+    height: 46px !important;
+
+    min-width: 46px !important;
+    min-height: 46px !important;
+
+    max-width: 46px !important;
+    max-height: 46px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    object-fit: contain !important;
+}
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.payment-method-text {
+    flex: 1 1 auto !important;
+
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    justify-content: center !important;
+
+    gap: 7px !important;
+
+    margin: 0 !important;
+    padding: 0 18px 0 0 !important;
+
+    overflow: hidden !important;
+}
+
+/* PAYMENT NAME */
+.payment-method-text strong {
+    display: block !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: var(--cream) !important;
+
+    font-family: var(--sans) !important;
+
+    font-size: 14px !important;
+
+    font-weight: 700 !important;
+
+    line-height: 1.2 !important;
+
+    letter-spacing: 0.01em !important;
+
+    white-space: nowrap !important;
+
+    overflow: hidden !important;
+
+    text-overflow: ellipsis !important;
+}
+
+/* PAYMENT DESCRIPTION */
+.payment-method-text span {
+    display: block !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: var(--muted-light) !important;
+
+    font-family: var(--sans) !important;
+
+    font-size: 10px !important;
+
+    font-weight: 400 !important;
+
+    line-height: 1.45 !important;
+
+    white-space: normal !important;
+}
+
+/* =========================================================
+   CHECK INDICATOR
+========================================================= */
+
+.payment-check {
+    position: relative !important;
+
+    flex: 0 0 26px !important;
+
+    width: 26px !important;
+    height: 26px !important;
+
+    min-width: 26px !important;
+    min-height: 26px !important;
+
+    max-width: 26px !important;
+    max-height: 26px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid rgba(255,255,255,0.20) !important;
+
+    border-radius: 50% !important;
+
+    color: transparent !important;
+
+    font-size: 11px !important;
+
+    font-weight: 700 !important;
+
+    flex-shrink: 0 !important;
+
+    transition:
+        background 0.35s ease,
+        border-color 0.35s ease,
+        color 0.35s ease,
+        transform 0.35s ease !important;
+}
+
+/* SELECTED CHECK */
+.payment-method > input:checked
++ .payment-method-content
+.payment-check {
+    color: var(--black) !important;
+
+    background: var(--gold) !important;
+
+    border-color: var(--gold) !important;
+
+    transform: scale(1.05) !important;
+}
+
+/* =========================================================
+   PAYMENT HEADING
+========================================================= */
+
+.payment-heading {
+    display: flex !important;
+
+    align-items: flex-end !important;
+
+    justify-content: space-between !important;
+
+    gap: 30px !important;
+
+    margin-bottom: 22px !important;
+}
+
+.payment-eyebrow {
+    display: block !important;
+
+    visibility: visible !important;
+
+    opacity: 1 !important;
+
+    margin: 0 0 7px 0 !important;
+
+    color: var(--gold) !important;
+
+    font-family: var(--sans) !important;
+
+    font-size: 10px !important;
+
+    font-weight: 700 !important;
+
+    letter-spacing: 0.20em !important;
+
+    line-height: 1.2 !important;
+
+    text-transform: uppercase !important;
+}
+
+.payment-heading h3 {
+    display: block !important;
+
+    visibility: visible !important;
+
+    opacity: 1 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: var(--cream) !important;
+
+    font-family: var(--serif) !important;
+
+    font-size: 27px !important;
+
+    font-weight: 500 !important;
+
+    line-height: 1.1 !important;
+}
+
+.payment-total {
+    flex-shrink: 0 !important;
+
+    color: var(--gold) !important;
+
+    font-family: var(--sans) !important;
+
+    font-size: 13px !important;
+
+    font-weight: 700 !important;
+
+    letter-spacing: 0.08em !important;
+
+    white-space: nowrap !important;
+}
+
+/* =========================================================
+   SECURITY NOTE
+========================================================= */
+
+.payment-note {
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 10px !important;
+
+    margin-top: 18px !important;
+
+    padding-top: 16px !important;
+
+    border-top:
+        1px solid rgba(255,255,255,0.08) !important;
+}
+
+.payment-note > span {
+    flex-shrink: 0 !important;
+
+    color: var(--gold) !important;
+
+    font-size: 13px !important;
+}
+
+.payment-note p {
+    margin: 0 !important;
+
+    color: var(--muted-light) !important;
+
+    font-family: var(--sans) !important;
+
+    font-size: 10px !important;
+
+    line-height: 1.5 !important;
+}
+
+.payment-note strong {
+    color: var(--cream) !important;
+
+    font-weight: 600 !important;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .payment-methods {
+        gap: 14px !important;
+    }
+
+    .payment-method-content {
+        padding: 16px !important;
+    }
+
+    .payment-icon {
+        flex-basis: 58px !important;
+
+        width: 58px !important;
+        height: 58px !important;
+
+        min-width: 58px !important;
+        min-height: 58px !important;
+
+        margin-right: 15px !important;
+    }
+
+    .payment-logo {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .payment-method-text {
+        padding-right: 12px !important;
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .payment-heading {
+        align-items: flex-start !important;
+
+        flex-direction: column !important;
+
+        gap: 8px !important;
+
+        margin-bottom: 18px !important;
+    }
+
+    .payment-heading h3 {
+        font-size: 24px !important;
+    }
+
+    .payment-total {
+        font-size: 12px !important;
+    }
+
+    .payment-methods {
+        grid-template-columns: 1fr !important;
+
+        gap: 12px !important;
+    }
+
+    .payment-method {
+        height: 96px !important;
+        min-height: 96px !important;
+    }
+
+    .payment-method-content {
+        height: 96px !important;
+        min-height: 96px !important;
+
+        padding: 14px 16px !important;
+    }
+
+    .payment-icon {
+        flex: 0 0 56px !important;
+
+        width: 56px !important;
+        height: 56px !important;
+
+        min-width: 56px !important;
+        min-height: 56px !important;
+
+        margin-right: 14px !important;
+    }
+
+    .payment-logo {
+        width: 39px !important;
+        height: 39px !important;
+    }
+
+    .payment-method-text {
+        padding-right: 12px !important;
+
+        gap: 5px !important;
+    }
+
+    .payment-method-text strong {
+        font-size: 12px !important;
+    }
+
+    .payment-method-text span {
+        font-size: 9px !important;
+
+        line-height: 1.4 !important;
+    }
+
+    .payment-check {
+        flex: 0 0 23px !important;
+
+        width: 23px !important;
+        height: 23px !important;
+
+        min-width: 23px !important;
+        min-height: 23px !important;
+    }
+}
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .payment-method {
+        height: 92px !important;
+        min-height: 92px !important;
+    }
+
+    .payment-method-content {
+        height: 92px !important;
+        min-height: 92px !important;
+
+        padding: 12px 14px !important;
+    }
+
+    .payment-icon {
+        flex: 0 0 52px !important;
+
+        width: 52px !important;
+        height: 52px !important;
+
+        min-width: 52px !important;
+        min-height: 52px !important;
+
+        margin-right: 12px !important;
+    }
+
+    .payment-logo {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .payment-method-text {
+        padding-right: 10px !important;
+    }
+
+    .payment-method-text strong {
+        font-size: 11px !important;
+    }
+
+    .payment-method-text span {
+        font-size: 8.5px !important;
+    }
+
+    .payment-check {
+        flex: 0 0 21px !important;
+
+        width: 21px !important;
+        height: 21px !important;
+
+        min-width: 21px !important;
+        min-height: 21px !important;
+    }
+}
+/* =========================================================
+   AIKEN'S PALACE — FINAL LUXURY POLISH
+   Add this block at the VERY BOTTOM of style.css
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   01. GLOBAL REFINEMENT
+--------------------------------------------------------- */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f3efe8;
+    color: #0b0b0a;
+    overflow-x: hidden;
+}
+
+::selection {
+    background: #c5a46d;
+    color: #0b0b0a;
+}
+
+
+/* ---------------------------------------------------------
+   02. PREMIUM NAVIGATION
+--------------------------------------------------------- */
+
+.navbar {
+    transition:
+        background-color 0.5s ease,
+        backdrop-filter 0.5s ease,
+        border-color 0.5s ease,
+        padding 0.5s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(11, 11, 10, 0.92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(197, 164, 109, 0.18);
+}
+
+.desktop-nav a {
+    transition:
+        color 0.3s ease,
+        opacity 0.3s ease;
+}
+
+.desktop-nav a:hover {
+    color: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   03. HERO REFINEMENT
+--------------------------------------------------------- */
+
+.hero {
+    isolation: isolate;
+}
+
+.hero-image {
+    transform: scale(1.02);
+}
+
+.hero-content {
+    max-width: 1100px;
+}
+
+.hero h1 {
+    letter-spacing: -0.045em;
+    line-height: 0.86;
+}
+
+.hero h1 em {
+    color: #c5a46d;
+}
+
+.hero p {
+    max-width: 560px;
+}
+
+.hero-eyebrow {
+    letter-spacing: 0.24em;
+}
+
+.gold-button {
+    transition:
+        transform 0.35s cubic-bezier(.22, 1, .36, 1),
+        background-color 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.gold-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+}
+
+.text-button {
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.text-button:hover {
+    color: #c5a46d;
+    transform: translateX(4px);
+}
+
+
+/* ---------------------------------------------------------
+   04. SECTION LABELS
+--------------------------------------------------------- */
+
+.section-label {
+    letter-spacing: 0.2em;
+    font-size: 10px;
+}
+
+.section-label.light {
+    color: rgba(255, 255, 255, 0.62);
+}
+
+
+/* ---------------------------------------------------------
+   05. INTRO — EDITORIAL FEEL
+--------------------------------------------------------- */
+
+.intro {
+    position: relative;
+}
+
+.intro-title h2,
+.intro-title h2 em {
+    letter-spacing: -0.035em;
+}
+
+.intro-title h2 em {
+    color: #c5a46d;
+}
+
+.intro-copy .large-copy {
+    max-width: 620px;
+    line-height: 1.45;
+}
+
+.discover-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    transition:
+        gap 0.35s ease,
+        color 0.3s ease;
+}
+
+.discover-link:hover {
+    color: #c5a46d;
+    gap: 20px;
+}
+
+
+/* ---------------------------------------------------------
+   06. ROOMS — PREMIUM CARDS
+--------------------------------------------------------- */
+
+.room-card {
+    transition:
+        transform 0.5s cubic-bezier(.22, 1, .36, 1),
+        box-shadow 0.5s ease;
+}
+
+.room-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.16);
+}
+
+.room-image {
+    overflow: hidden;
+}
+
+.room-image img {
+    transition:
+        transform 1s cubic-bezier(.22, 1, .36, 1),
+        filter 0.7s ease;
+}
+
+.room-card:hover .room-image img {
+    transform: scale(1.055);
+}
+
+.room-image-arrow {
+    transition:
+        transform 0.35s ease,
+        background-color 0.35s ease,
+        color 0.35s ease;
+}
+
+.room-card:hover .room-image-arrow {
+    transform: rotate(45deg);
+    background: #c5a46d;
+    color: #0b0b0a;
+}
+
+.room-tag {
+    letter-spacing: 0.18em;
+}
+
+.room-specs {
+    letter-spacing: 0.14em;
+}
+
+.room-explore {
+    transition:
+        color 0.3s ease,
+        gap 0.3s ease;
+}
+
+.room-explore:hover {
+    color: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   07. EXPERIENCE
+--------------------------------------------------------- */
+
+.experience-image {
+    overflow: hidden;
+}
+
+.experience-image img {
+    transition:
+        transform 1.2s cubic-bezier(.22, 1, .36, 1);
+}
+
+.experience-image:hover img {
+    transform: scale(1.035);
+}
+
+.experience-content h2 {
+    letter-spacing: -0.04em;
+}
+
+.experience-content h2 em {
+    color: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   08. EXPERIENCE LIST
+--------------------------------------------------------- */
+
+.experience-item {
+    transition:
+        background-color 0.35s ease,
+        padding-left 0.4s cubic-bezier(.22, 1, .36, 1),
+        border-color 0.35s ease;
+}
+
+.experience-item:hover {
+    padding-left: 24px;
+}
+
+.experience-item b {
+    transition:
+        transform 0.35s ease,
+        color 0.35s ease;
+}
+
+.experience-item:hover b {
+    transform: rotate(45deg);
+    color: #c5a46d;
+}
+
+.experience-item strong {
+    transition: color 0.3s ease;
+}
+
+.experience-item:hover strong {
+    color: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   09. INFINITY POOL — CINEMATIC
+--------------------------------------------------------- */
+
+.visual-break {
+    isolation: isolate;
+}
+
+.visual-break img {
+    transition: transform 1.5s cubic-bezier(.22, 1, .36, 1);
+}
+
+.visual-break:hover img {
+    transform: scale(1.025);
+}
+
+.visual-content h2 {
+    letter-spacing: -0.045em;
+}
+
+.visual-content h2 em {
+    color: #c5a46d;
+}
+
+.visual-caption {
+    letter-spacing: 0.18em;
+}
+
+
+/* ---------------------------------------------------------
+   10. DINING
+--------------------------------------------------------- */
+
+.dining-image {
+    overflow: hidden;
+}
+
+.dining-image img {
+    transition:
+        transform 1.2s cubic-bezier(.22, 1, .36, 1);
+}
+
+.dining-image:hover img {
+    transform: scale(1.04);
+}
+
+.dining-content h2 {
+    letter-spacing: -0.04em;
+}
+
+.dining-content h2 em {
+    color: #c5a46d;
+}
+
+.dining-features span {
+    letter-spacing: 0.13em;
+}
+
+
+/* ---------------------------------------------------------
+   11. WELLNESS
+--------------------------------------------------------- */
+
+.wellness-image {
+    overflow: hidden;
+}
+
+.wellness-image img {
+    transition:
+        transform 1.2s cubic-bezier(.22, 1, .36, 1);
+}
+
+.wellness-image:hover img {
+    transform: scale(1.04);
+}
+
+.wellness-content h2 {
+    letter-spacing: -0.04em;
+}
+
+.wellness-content h2 em {
+    color: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   12. CELEBRATIONS
+--------------------------------------------------------- */
+
+.events-image {
+    overflow: hidden;
+}
+
+.events-image img {
+    transition:
+        transform 1.2s cubic-bezier(.22, 1, .36, 1);
+}
+
+.events:hover .events-image img {
+    transform: scale(1.035);
+}
+
+.events-content h2 {
+    letter-spacing: -0.04em;
+}
+
+.events-content h2 em {
+    color: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   13. LOBBY — GRAND CLOSING MOMENT
+--------------------------------------------------------- */
+
+.lobby {
+    isolation: isolate;
+}
+
+.lobby img {
+    transition:
+        transform 1.5s cubic-bezier(.22, 1, .36, 1);
+}
+
+.lobby:hover img {
+    transform: scale(1.025);
+}
+
+.lobby-content h2 {
+    letter-spacing: -0.045em;
+}
+
+.lobby-content h2 em {
+    color: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   14. RESERVATION
+--------------------------------------------------------- */
+
+.reservation {
+    position: relative;
+}
+
+.reservation-title h2 {
+    letter-spacing: -0.045em;
+}
+
+.reservation-title h2 em {
+    color: #c5a46d;
+}
+
+.reservation-benefits > div {
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.reservation-benefits > div:hover {
+    transform: translateX(5px);
+}
+
+.form-field input,
+.form-field select {
+    transition:
+        border-color 0.3s ease,
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    border-color: #c5a46d;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(197, 164, 109, 0.12);
+}
+
+
+/* ---------------------------------------------------------
+   15. DEPOSIT CARD
+--------------------------------------------------------- */
+
+.deposit-card {
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.deposit-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ---------------------------------------------------------
+   16. PAYMENT METHODS
+--------------------------------------------------------- */
+
+.payment-method {
+    transition:
+        border-color 0.35s ease,
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.payment-method:hover {
+    transform: translateY(-2px);
+}
+
+.payment-method:has(input:checked) {
+    border-color: #c5a46d;
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.08),
+        inset 0 0 0 1px rgba(197, 164, 109, 0.35);
+}
+
+.payment-check {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.payment-method:has(input:checked) .payment-check {
+    background: #c5a46d;
+    color: #0b0b0a;
+    transform: scale(1.05);
+}
+
+
+/* ---------------------------------------------------------
+   17. RESERVATION BUTTON
+--------------------------------------------------------- */
+
+.reserve-submit {
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        background-color 0.35s ease;
+}
+
+.reserve-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.16);
+}
+
+
+/* ---------------------------------------------------------
+   18. FOOTER
+--------------------------------------------------------- */
+
+footer {
+    background: #0b0b0a;
+}
+
+.footer-column a {
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: #c5a46d;
+    transform: translateX(4px);
+}
+
+.footer-brand h2 {
+    letter-spacing: -0.035em;
+}
+
+
+/* ---------------------------------------------------------
+   19. MODALS
+--------------------------------------------------------- */
+
+.room-modal-box,
+.experience-modal-box,
+.booking-modal-box,
+.payment-success-box {
+    box-shadow:
+        0 40px 100px rgba(0, 0, 0, 0.35);
+}
+
+.room-modal-close,
+.experience-modal-close,
+.booking-modal-close {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.room-modal-close:hover,
+.experience-modal-close:hover,
+.booking-modal-close:hover {
+    background: #c5a46d;
+    color: #0b0b0a;
+    transform: rotate(90deg);
+}
+
+
+/* ---------------------------------------------------------
+   20. IMAGE QUALITY
+--------------------------------------------------------- */
+
+.room-image img,
+.experience-image img,
+.dining-image img,
+.wellness-image img,
+.events-image img,
+.lobby img,
+.visual-break img {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+
+/* =========================================================
+   21. MOBILE LUXURY POLISH
+========================================================= */
+
+@media (max-width: 768px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .hero h1 {
+        font-size: clamp(58px, 17vw, 92px);
+        line-height: 0.86;
+    }
+
+    .hero p {
+        max-width: 90%;
+    }
+
+    .hero-actions {
+        width: 100%;
+    }
+
+    .gold-button {
+        min-height: 54px;
+    }
+
+    .intro-title h2,
+    .experience-content h2,
+    .dining-content h2,
+    .wellness-content h2,
+    .events-content h2,
+    .reservation-title h2 {
+        line-height: 0.95;
+    }
+
+    .rooms-grid {
+        gap: 28px;
+    }
+
+    .room-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .room-card:hover .room-image img {
+        transform: none;
+    }
+
+    .experience-item:hover {
+        padding-left: 0;
+    }
+
+    .visual-break {
+        min-height: 620px;
+    }
+
+    /*
+       Prevent "SIMPLY" / "TIMELESS"
+       from getting clipped on phones.
+    */
+
+    .visual-content {
+        width: min(90%, 560px);
+    }
+
+    .visual-content h2 {
+        font-size: clamp(54px, 16vw, 100px);
+        line-height: 0.88;
+        overflow: visible;
+    }
+
+    .pool-word {
+        display: block;
+        white-space: nowrap;
+    }
+
+    .visual-content h2 em {
+        display: block;
+    }
+
+    .payment-methods {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-method {
+        min-height: 104px;
+    }
+
+    .payment-method-content {
+        min-height: 104px;
+    }
+
+    .footer-bottom {
+        gap: 14px;
+    }
+}
+
+
+/* =========================================================
+   22. SMALL PHONES
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .hero h1 {
+        font-size: clamp(52px, 18vw, 76px);
+    }
+
+    .hero-eyebrow {
+        font-size: 8px;
+        letter-spacing: 0.16em;
+    }
+
+    .hero p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .hero-bottom {
+        gap: 12px;
+    }
+
+    .visual-break {
+        min-height: 560px;
+    }
+
+    .visual-content h2 {
+        font-size: clamp(48px, 17vw, 72px);
+    }
+
+    .visual-caption {
+        font-size: 8px;
+        letter-spacing: 0.12em;
+    }
+
+    .payment-method-content {
+        gap: 14px;
+    }
+
+    .payment-method-text strong {
+        font-size: 15px;
+    }
+
+    .payment-method-text span {
+        font-size: 11px;
+    }
+
+    .payment-icon {
+        flex: 0 0 64px;
+    }
+
+    .payment-logo {
+        max-width: 52px;
+        max-height: 38px;
+    }
+
+}
+
+
+/* =========================================================
+   23. REDUCED MOTION ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+}
+/* =========================================================
+   AIKEN'S PALACE — LUXURY VISUAL DETAIL PASS
+   Paste BELOW the previous override
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   01. SUBTLE GOLD DETAILS
+--------------------------------------------------------- */
+
+.section-line {
+    background: rgba(197, 164, 109, 0.45);
+}
+
+.floating-number {
+    color: rgba(197, 164, 109, 0.45);
+}
+
+
+/* ---------------------------------------------------------
+   02. HERO — DEEPER CINEMATIC DEPTH
+--------------------------------------------------------- */
+
+.hero-dark {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(5, 5, 4, 0.78) 0%,
+            rgba(5, 5, 4, 0.38) 48%,
+            rgba(5, 5, 4, 0.58) 100%
+        );
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.22),
+            transparent 22%,
+            transparent 72%,
+            rgba(0, 0, 0, 0.42)
+        );
+}
+
+.hero-content,
+.hero-bottom {
+    z-index: 4;
+}
+
+
+/* ---------------------------------------------------------
+   03. HERO BUTTON REFINEMENT
+--------------------------------------------------------- */
+
+.gold-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.gold-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 80%;
+    height: 100%;
+    background: linear-gradient(
+        110deg,
+        transparent,
+        rgba(255, 255, 255, 0.18),
+        transparent
+    );
+    transform: skewX(-18deg);
+    transition: left 0.7s ease;
+}
+
+.gold-button:hover::before {
+    left: 130%;
+}
+
+.gold-button span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.gold-button:hover span {
+    transform: translateX(4px);
+}
+
+
+/* ---------------------------------------------------------
+   04. INTRO — GOLD ACCENT
+--------------------------------------------------------- */
+
+.intro-copy {
+    position: relative;
+}
+
+.intro-copy::before {
+    content: "";
+    display: block;
+    width: 42px;
+    height: 1px;
+    background: #c5a46d;
+    margin-bottom: 28px;
+    opacity: 0.8;
+}
+
+
+/* ---------------------------------------------------------
+   05. ROOM CARDS — EDITORIAL NUMBERING
+--------------------------------------------------------- */
+
+.room-index {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+}
+
+.room-details h3 {
+    transition: color 0.3s ease;
+}
+
+.room-card:hover .room-details h3 {
+    color: #c5a46d;
+}
+
+.room-details p {
+    max-width: 440px;
+}
+
+
+/* ---------------------------------------------------------
+   06. ROOM MODAL — MORE PREMIUM
+--------------------------------------------------------- */
+
+.room-modal-content h2 {
+    letter-spacing: -0.035em;
+}
+
+.room-modal-label {
+    letter-spacing: 0.2em;
+    color: #c5a46d;
+}
+
+.room-modal-specs strong {
+    font-family: "Cormorant Garamond", serif;
+}
+
+.room-amenities span {
+    transition:
+        border-color 0.3s ease,
+        color 0.3s ease;
+}
+
+.room-amenities span:hover {
+    border-color: #c5a46d;
+    color: #c5a46d;
+}
+
+.room-modal-button {
+    transition:
+        transform 0.3s ease,
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.room-modal-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.16);
+}
+
+
+/* ---------------------------------------------------------
+   07. EXPERIENCE IMAGE FRAME
+--------------------------------------------------------- */
+
+.experience-image {
+    position: relative;
+}
+
+.experience-image::after {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    pointer-events: none;
+    z-index: 2;
+}
+
+
+/* ---------------------------------------------------------
+   08. EXPERIENCE LIST — LUXURY ROWS
+--------------------------------------------------------- */
+
+.experience-items {
+    border-top: 1px solid rgba(197, 164, 109, 0.25);
+}
+
+.experience-item {
+    position: relative;
+}
+
+.experience-item::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: #c5a46d;
+    transition: width 0.5s cubic-bezier(.22, 1, .36, 1);
+}
+
+.experience-item:hover::after {
+    width: 100%;
+}
+
+
+/* ---------------------------------------------------------
+   09. POOL SECTION — EDITORIAL FRAME
+--------------------------------------------------------- */
+
+.visual-break::before {
+    content: "";
+    position: absolute;
+    inset: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.visual-content {
+    z-index: 5;
+}
+
+.visual-content > span {
+    letter-spacing: 0.28em;
+}
+
+
+/* ---------------------------------------------------------
+   10. DINING — REFINED DETAILS
+--------------------------------------------------------- */
+
+.dining-content::before {
+    content: "04";
+    display: block;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 18px;
+    color: #c5a46d;
+    margin-bottom: 18px;
+}
+
+.dining-features {
+    border-top: 1px solid rgba(11, 11, 10, 0.15);
+    border-bottom: 1px solid rgba(11, 11, 10, 0.15);
+    padding: 18px 0;
+}
+
+
+/* ---------------------------------------------------------
+   11. WELLNESS — GOLD DIVIDER
+--------------------------------------------------------- */
+
+.wellness-content::before {
+    content: "";
+    display: block;
+    width: 45px;
+    height: 1px;
+    background: #c5a46d;
+    margin-bottom: 28px;
+}
+
+
+/* ---------------------------------------------------------
+   12. EVENTS — IMAGE DEPTH
+--------------------------------------------------------- */
+
+.events-image {
+    position: relative;
+}
+
+.events-image::after {
+    content: "";
+    position: absolute;
+    inset: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   13. LOBBY — CINEMATIC OVERLAY
+--------------------------------------------------------- */
+
+.lobby-overlay {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.08),
+            rgba(0, 0, 0, 0.72)
+        );
+}
+
+.lobby-content span {
+    letter-spacing: 0.28em;
+}
+
+.lobby-content p {
+    letter-spacing: 0.12em;
+}
+
+
+/* ---------------------------------------------------------
+   14. RESERVATION — PREMIUM FORM
+--------------------------------------------------------- */
+
+.booking-form {
+    position: relative;
+}
+
+.form-heading {
+    border-bottom: 1px solid rgba(197, 164, 109, 0.25);
+}
+
+.form-heading span {
+    letter-spacing: 0.18em;
+}
+
+.form-heading small {
+    letter-spacing: 0.13em;
+}
+
+.form-field label {
+    letter-spacing: 0.15em;
+}
+
+.form-field input,
+.form-field select {
+    border-radius: 0;
+}
+
+.form-field input::placeholder {
+    transition: opacity 0.25s ease;
+}
+
+.form-field input:focus::placeholder {
+    opacity: 0.45;
+}
+
+
+/* ---------------------------------------------------------
+   15. DEPOSIT CARD — LUXURY TREATMENT
+--------------------------------------------------------- */
+
+.deposit-card {
+    border: 1px solid rgba(197, 164, 109, 0.42);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(197, 164, 109, 0.08),
+            rgba(197, 164, 109, 0.02)
+        );
+}
+
+.deposit-icon {
+    font-family: "Cormorant Garamond", serif;
+    letter-spacing: 0.05em;
+}
+
+.test-badge {
+    letter-spacing: 0.15em;
+    color: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   16. PAYMENT — CLEANER LUXURY
+--------------------------------------------------------- */
+
+.payment-section {
+    margin-top: 12px;
+}
+
+.payment-heading h3 {
+    letter-spacing: -0.015em;
+}
+
+.payment-total {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 28px;
+    color: #c5a46d;
+}
+
+.payment-note {
+    border-top: 1px solid rgba(197, 164, 109, 0.22);
+}
+
+.payment-note strong {
+    color: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   17. BOOKING MODAL
+--------------------------------------------------------- */
+
+.booking-modal-box {
+    border: 1px solid rgba(197, 164, 109, 0.24);
+}
+
+.booking-modal-mark {
+    box-shadow:
+        0 0 0 8px rgba(197, 164, 109, 0.06);
+}
+
+.booking-modal-title,
+.booking-modal-box h2 {
+    letter-spacing: -0.04em;
+}
+
+.booking-summary > div {
+    transition:
+        background-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.booking-summary > div:hover {
+    background: rgba(197, 164, 109, 0.05);
+}
+
+
+/* ---------------------------------------------------------
+   18. PAYMENT SUCCESS
+--------------------------------------------------------- */
+
+.payment-success-box {
+    border: 1px solid rgba(197, 164, 109, 0.3);
+}
+
+.success-ring {
+    box-shadow:
+        0 0 0 10px rgba(197, 164, 109, 0.06),
+        0 0 45px rgba(197, 164, 109, 0.12);
+}
+
+.success-reference strong {
+    color: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   19. FOOTER BRAND
+--------------------------------------------------------- */
+
+.footer-brand span {
+    letter-spacing: 0.28em;
+}
+
+.footer-brand h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+}
+
+.footer-brand p {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+
+/* ---------------------------------------------------------
+   20. DESKTOP SPACING
+--------------------------------------------------------- */
+
+@media (min-width: 1100px) {
+
+    .intro,
+    .rooms,
+    .experience-list,
+    .reservation {
+        padding-top: 140px;
+        padding-bottom: 140px;
+    }
+
+    .rooms-header {
+        margin-bottom: 75px;
+    }
+
+    .experience-list-header {
+        margin-bottom: 75px;
+    }
+
+    .reservation-grid {
+        gap: 90px;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   21. TABLET
+--------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+    .visual-break::before,
+    .experience-image::after,
+    .events-image::after {
+        inset: 16px;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   22. PHONE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+    .hero::after {
+        background:
+            linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.24),
+                transparent 28%,
+                rgba(0, 0, 0, 0.55)
+            );
+    }
+
+    .intro-copy::before {
+        margin-bottom: 20px;
+    }
+
+    .experience-image::after,
+    .events-image::after {
+        inset: 12px;
+    }
+
+    .visual-break::before {
+        inset: 14px;
+    }
+
+    .dining-content::before {
+        margin-bottom: 12px;
+    }
+
+    .wellness-content::before {
+        margin-bottom: 20px;
+    }
+
+    .payment-total {
+        font-size: 24px;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   23. VERY SMALL PHONES
+--------------------------------------------------------- */
+
+@media (max-width: 420px) {
+
+    .visual-break::before {
+        inset: 10px;
+    }
+
+    .visual-content > span {
+        letter-spacing: 0.18em;
+    }
+
+}
+/* =========================================================
+   AIKEN'S PALACE — FUNCTIONAL LUXURY POLISH / PASS 3
+   Add this BELOW all existing CSS
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   1. SMOOTH GLOBAL INTERACTION
+--------------------------------------------------------- */
+
+html {
+    scroll-behavior: smooth;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+    transition:
+        color 0.3s ease,
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease,
+        opacity 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* ---------------------------------------------------------
+   2. NAVIGATION REFINEMENT
+--------------------------------------------------------- */
+
+.nav-links a {
+    position: relative;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    width: 0;
+    height: 1px;
+    background: var(--gold, #c5a46d);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--gold, #c5a46d);
+}
+
+
+/* ---------------------------------------------------------
+   3. MOBILE MENU
+--------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+    .mobile-menu {
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+    }
+
+    .mobile-menu a {
+        position: relative;
+        display: block;
+        padding: 14px 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(28px, 8vw, 42px);
+        letter-spacing: 0.02em;
+    }
+
+    .mobile-menu a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 5px;
+        width: 0;
+        height: 1px;
+        background: var(--gold, #c5a46d);
+        transition: width 0.35s ease;
+    }
+
+    .mobile-menu a:hover::after,
+    .mobile-menu a:focus-visible::after {
+        width: 45px;
+    }
+
+    .mobile-menu-toggle {
+        cursor: pointer;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   4. ROOM CARDS — MORE INTERACTIVE
+--------------------------------------------------------- */
+
+.room-card {
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.room-card .room-image {
+    overflow: hidden;
+}
+
+.room-card .room-image img {
+    transition:
+        transform 0.9s cubic-bezier(.2,.65,.2,1),
+        filter 0.6s ease;
+}
+
+.room-card:hover .room-image img {
+    transform: scale(1.055);
+    filter: brightness(1.03);
+}
+
+.room-card:hover {
+    transform: translateY(-6px);
+}
+
+
+/* ---------------------------------------------------------
+   5. ROOM ACTIONS
+--------------------------------------------------------- */
+
+.room-card button,
+.room-card .button,
+.room-card a {
+    position: relative;
+}
+
+.room-card button:hover,
+.room-card .button:hover,
+.room-card a:hover {
+    color: var(--gold, #c5a46d);
+}
+
+
+/* ---------------------------------------------------------
+   6. FORM FIELDS
+--------------------------------------------------------- */
+
+.reservation-form input,
+.reservation-form select,
+.reservation-form textarea {
+    border-radius: 0;
+    transition:
+        border-color 0.3s ease,
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.reservation-form input:hover,
+.reservation-form select:hover,
+.reservation-form textarea:hover {
+    border-color: rgba(197, 164, 109, 0.55);
+}
+
+.reservation-form input:focus,
+.reservation-form select:focus,
+.reservation-form textarea:focus {
+    outline: none;
+    border-color: var(--gold, #c5a46d);
+    box-shadow: 0 0 0 3px rgba(197, 164, 109, 0.08);
+}
+
+
+/* ---------------------------------------------------------
+   7. DATE INPUTS
+--------------------------------------------------------- */
+
+input[type="date"] {
+    color-scheme: dark;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.75;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+
+/* ---------------------------------------------------------
+   8. SELECT DROPDOWN
+--------------------------------------------------------- */
+
+select {
+    cursor: pointer;
+}
+
+select option {
+    background: #0b0b0a;
+    color: #f3efe8;
+}
+
+
+/* ---------------------------------------------------------
+   9. RESERVE BUTTON
+--------------------------------------------------------- */
+
+.reserve-button,
+button[type="submit"],
+#paymentButton {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.reserve-button::before,
+button[type="submit"]::before,
+#paymentButton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.22),
+        transparent
+    );
+    transform: skewX(-20deg);
+    transition: left 0.7s ease;
+    z-index: -1;
+}
+
+.reserve-button:hover::before,
+button[type="submit"]:hover::before,
+#paymentButton:hover::before {
+    left: 140%;
+}
+
+.reserve-button:hover,
+button[type="submit"]:hover,
+#paymentButton:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ---------------------------------------------------------
+   10. DISABLED BUTTON STATE
+--------------------------------------------------------- */
+
+button:disabled,
+button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   11. MODAL BACKDROP
+--------------------------------------------------------- */
+
+.modal,
+.room-modal,
+.booking-modal {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-content,
+.room-modal-content,
+.booking-modal-content {
+    animation: palaceModalIn 0.45s cubic-bezier(.2,.75,.2,1);
+}
+
+@keyframes palaceModalIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* ---------------------------------------------------------
+   12. MODAL CLOSE BUTTON
+--------------------------------------------------------- */
+
+.modal-close,
+.close-modal,
+.room-modal-close,
+.booking-modal-close {
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease,
+        background-color 0.3s ease;
+}
+
+.modal-close:hover,
+.close-modal:hover,
+.room-modal-close:hover,
+.booking-modal-close:hover {
+    color: var(--gold, #c5a46d);
+    transform: rotate(90deg);
+}
+
+
+/* ---------------------------------------------------------
+   13. PAYMENT METHODS
+--------------------------------------------------------- */
+
+.payment-method {
+    cursor: pointer;
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background-color 0.3s ease;
+}
+
+.payment-method:hover {
+    transform: translateY(-4px);
+    border-color: rgba(197, 164, 109, 0.75);
+    background-color: rgba(197, 164, 109, 0.04);
+}
+
+
+/* ---------------------------------------------------------
+   14. EXPERIENCE LINKS
+--------------------------------------------------------- */
+
+.experience-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.experience-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold, #c5a46d);
+    transition: width 0.4s ease;
+}
+
+.experience-link:hover::after {
+    width: 100%;
+}
+
+
+/* ---------------------------------------------------------
+   15. IMAGE HOVER DETAIL
+--------------------------------------------------------- */
+
+.dining-image,
+.wellness-image,
+.events-image,
+.lobby-image {
+    overflow: hidden;
+}
+
+.dining-image img,
+.wellness-image img,
+.events-image img,
+.lobby-image img {
+    transition:
+        transform 1s cubic-bezier(.2,.65,.2,1),
+        filter 0.7s ease;
+}
+
+.dining-image:hover img,
+.wellness-image:hover img,
+.events-image:hover img,
+.lobby-image:hover img {
+    transform: scale(1.035);
+}
+
+
+/* ---------------------------------------------------------
+   16. GOLD SECTION DIVIDER
+--------------------------------------------------------- */
+
+.section-heading::after {
+    transition:
+        width 0.5s ease,
+        opacity 0.4s ease;
+}
+
+
+/* ---------------------------------------------------------
+   17. FOOTER LINKS
+--------------------------------------------------------- */
+
+footer a {
+    position: relative;
+}
+
+footer a:hover {
+    color: var(--gold, #c5a46d);
+}
+
+
+/* ---------------------------------------------------------
+   18. TOUCH DEVICES
+--------------------------------------------------------- */
+
+@media (hover: none) and (pointer: coarse) {
+
+    .room-card:hover {
+        transform: none;
+    }
+
+    .room-card:hover .room-image img,
+    .dining-image:hover img,
+    .wellness-image:hover img,
+    .events-image:hover img,
+    .lobby-image:hover img {
+        transform: none;
+    }
+
+    .payment-method:hover {
+        transform: none;
+    }
+
+    .reserve-button:hover,
+    button[type="submit"]:hover,
+    #paymentButton:hover {
+        transform: none;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   19. TABLET
+--------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+
+    .room-grid {
+        gap: 20px;
+    }
+
+    .experience-grid {
+        gap: 28px;
+    }
+
+    .reservation-form {
+        gap: 18px;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   20. PHONE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+    section {
+        scroll-margin-top: 80px;
+    }
+
+    .room-card {
+        transform: none !important;
+    }
+
+    .room-card:hover {
+        transform: none !important;
+    }
+
+    .reservation-form {
+        width: 100%;
+    }
+
+    .reservation-form input,
+    .reservation-form select,
+    .reservation-form textarea {
+        min-height: 52px;
+        font-size: 16px;
+    }
+
+    .reserve-button,
+    button[type="submit"],
+    #paymentButton {
+        width: 100%;
+        min-height: 54px;
+    }
+
+    .modal-content,
+    .room-modal-content,
+    .booking-modal-content {
+        width: calc(100% - 28px);
+        max-height: calc(100vh - 28px);
+        overflow-y: auto;
+    }
+
+    .modal-close,
+    .close-modal,
+    .room-modal-close,
+    .booking-modal-close {
+        width: 42px;
+        height: 42px;
+    }
+
+    footer {
+        padding-bottom: 32px;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   21. VERY SMALL PHONES
+--------------------------------------------------------- */
+
+@media (max-width: 390px) {
+
+    .mobile-menu a {
+        font-size: 30px;
+    }
+
+    .room-card {
+        min-width: 0;
+    }
+
+    .reservation-form {
+        gap: 14px;
+    }
+
+    .payment-method {
+        min-width: 0;
+    }
+
+    .payment-method-content {
+        padding: 18px;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   22. ACCESSIBILITY
+--------------------------------------------------------- */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 1px solid var(--gold, #c5a46d);
+    outline-offset: 4px;
+}
+
+
+/* ---------------------------------------------------------
+   23. REDUCED MOTION
+--------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* =========================================================
+   END — PASS 3
+   ========================================================= */
+   /* =========================================================
+   AIKEN'S PALACE — PASS 4
+   HOTEL UX + RESERVATION POLISH
+   Add BELOW all existing CSS
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   1. RESERVATION SECTION — PREMIUM STRUCTURE
+--------------------------------------------------------- */
+
+#reservation {
+    position: relative;
+}
+
+#reservation::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 70px;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(197,164,109,.65),
+        transparent
+    );
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   2. RESERVATION HEADING
+--------------------------------------------------------- */
+
+#reservation h2 {
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#reservation .section-label {
+    letter-spacing: .22em;
+}
+
+
+/* ---------------------------------------------------------
+   3. FORM GROUPS
+--------------------------------------------------------- */
+
+.form-group {
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 9px;
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    opacity: .7;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+}
+
+
+/* ---------------------------------------------------------
+   4. FORM FIELD FOCUS
+--------------------------------------------------------- */
+
+.form-group:focus-within label {
+    color: var(--gold, #c5a46d);
+    opacity: 1;
+}
+
+
+/* ---------------------------------------------------------
+   5. INVALID FORM FIELDS
+--------------------------------------------------------- */
+
+input.invalid,
+select.invalid,
+textarea.invalid {
+    border-color: #b96d5f !important;
+    box-shadow: 0 0 0 3px rgba(185,109,95,.08);
+}
+
+
+/* ---------------------------------------------------------
+   6. ROOM SELECTION
+--------------------------------------------------------- */
+
+#roomSelect {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image:
+        linear-gradient(45deg, transparent 50%, #c5a46d 50%),
+        linear-gradient(135deg, #c5a46d 50%, transparent 50%);
+    background-position:
+        calc(100% - 18px) 50%,
+        calc(100% - 13px) 50%;
+    background-size:
+        5px 5px,
+        5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 45px;
+}
+
+
+/* ---------------------------------------------------------
+   7. DATE FIELD VISUALS
+--------------------------------------------------------- */
+
+#arrival,
+#departure {
+    position: relative;
+}
+
+#arrival:valid,
+#departure:valid {
+    border-color: rgba(197,164,109,.35);
+}
+
+
+/* ---------------------------------------------------------
+   8. GUEST FIELD
+--------------------------------------------------------- */
+
+#guests {
+    cursor: pointer;
+}
+
+
+/* ---------------------------------------------------------
+   9. DEPOSIT INFORMATION
+--------------------------------------------------------- */
+
+.deposit-card {
+    position: relative;
+}
+
+.deposit-card::before {
+    content: "RESERVATION DEPOSIT";
+    position: absolute;
+    top: -9px;
+    left: 24px;
+    padding: 0 9px;
+    background: var(--cream, #f3efe8);
+    color: var(--gold, #c5a46d);
+    font-size: 9px;
+    letter-spacing: .18em;
+}
+
+
+/* ---------------------------------------------------------
+   10. PAYMENT AREA
+--------------------------------------------------------- */
+
+#paymentSection {
+    scroll-margin-top: 100px;
+}
+
+#paymentSection.is-visible {
+    animation: paymentReveal .7s ease both;
+}
+
+@keyframes paymentReveal {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ---------------------------------------------------------
+   11. PAYMENT AMOUNT
+--------------------------------------------------------- */
+
+#paymentAmount {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 1;
+    color: var(--gold, #c5a46d);
+}
+
+
+/* ---------------------------------------------------------
+   12. BOOKING MODAL
+--------------------------------------------------------- */
+
+#bookingModal {
+    z-index: 1000;
+}
+
+#bookingModal .modal-content {
+    position: relative;
+}
+
+#bookingModal .modal-content::before {
+    content: "AIKEN'S PALACE";
+    display: block;
+    margin-bottom: 18px;
+    color: var(--gold, #c5a46d);
+    font-size: 10px;
+    letter-spacing: .25em;
+}
+
+
+/* ---------------------------------------------------------
+   13. ROOM MODAL
+--------------------------------------------------------- */
+
+#roomModal {
+    z-index: 1001;
+}
+
+#roomModal .room-modal-content {
+    position: relative;
+}
+
+#roomModal .room-modal-content::after {
+    content: "";
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(197,164,109,.35);
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   14. ROOM MODAL IMAGE
+--------------------------------------------------------- */
+
+#roomModal img {
+    transition: transform 1s cubic-bezier(.2,.65,.2,1);
+}
+
+#roomModal .room-modal-content:hover img {
+    transform: scale(1.015);
+}
+
+
+/* ---------------------------------------------------------
+   15. ROOM PRICE / META
+--------------------------------------------------------- */
+
+.room-meta {
+    letter-spacing: .12em;
+}
+
+.room-price {
+    font-family: "Cormorant Garamond", serif;
+}
+
+
+/* ---------------------------------------------------------
+   16. EXPERIENCE ITEMS
+--------------------------------------------------------- */
+
+.experience-item {
+    transition:
+        padding-left .4s ease,
+        opacity .4s ease;
+}
+
+.experience-item:hover {
+    padding-left: 10px;
+}
+
+
+/* ---------------------------------------------------------
+   17. EXPERIENCE NUMBER
+--------------------------------------------------------- */
+
+.experience-number {
+    transition:
+        color .3s ease,
+        transform .3s ease;
+}
+
+.experience-item:hover .experience-number {
+    color: var(--gold, #c5a46d);
+    transform: translateX(4px);
+}
+
+
+/* ---------------------------------------------------------
+   18. CINEMATIC IMAGE SECTIONS
+--------------------------------------------------------- */
+
+.dining-section,
+.wellness-section,
+.events-section,
+.lobby-section {
+    position: relative;
+}
+
+.dining-section::after,
+.wellness-section::after,
+.events-section::after,
+.lobby-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(11,11,10,.04),
+            transparent 35%,
+            rgba(11,11,10,.08)
+        );
+}
+
+
+/* ---------------------------------------------------------
+   19. IMAGE CAPTIONS
+--------------------------------------------------------- */
+
+.image-caption,
+.visual-caption {
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+
+/* ---------------------------------------------------------
+   20. LOBBY BRAND MOMENT
+--------------------------------------------------------- */
+
+.lobby-section h2 {
+    letter-spacing: -.025em;
+}
+
+.lobby-section h2 span {
+    color: var(--gold, #c5a46d);
+}
+
+
+/* ---------------------------------------------------------
+   21. FOOTER — HOTEL CONTACT
+--------------------------------------------------------- */
+
+footer {
+    position: relative;
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 60px;
+    height: 1px;
+    background: var(--gold, #c5a46d);
+    transform: translateX(-50%);
+}
+
+
+/* ---------------------------------------------------------
+   22. FOOTER SOCIAL LINKS
+--------------------------------------------------------- */
+
+footer a {
+    transition:
+        color .3s ease,
+        letter-spacing .3s ease;
+}
+
+footer a:hover {
+    letter-spacing: .03em;
+}
+
+
+/* ---------------------------------------------------------
+   23. SCROLL TARGET OFFSET
+--------------------------------------------------------- */
+
+#home,
+#palace,
+#rooms,
+#experience,
+#dining,
+#wellness,
+#events,
+#reservation {
+    scroll-margin-top: 100px;
+}
+
+
+/* ---------------------------------------------------------
+   24. MOBILE RESERVATION
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+    #reservation::before {
+        height: 45px;
+    }
+
+    .deposit-card::before {
+        left: 16px;
+        font-size: 8px;
+    }
+
+    #paymentAmount {
+        font-size: 48px;
+    }
+
+    #bookingModal .modal-content::before {
+        margin-bottom: 12px;
+    }
+
+    #roomModal .room-modal-content::after {
+        top: 12px;
+        right: 12px;
+        width: 28px;
+        height: 28px;
+    }
+
+    .experience-item:hover {
+        padding-left: 0;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   25. SMALL PHONES
+--------------------------------------------------------- */
+
+@media (max-width: 390px) {
+
+    .form-group label {
+        font-size: 10px;
+    }
+
+    #paymentAmount {
+        font-size: 42px;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   26. REDUCED MOTION
+--------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #paymentSection.is-visible,
+    #roomModal .room-modal-content,
+    #bookingModal .modal-content {
+        animation: none;
+    }
+}
+
+
+/* =========================================================
+   END — PASS 4
+   ========================================================= */
+   /* =========================================================
+   AIKEN'S PALACE — PASS 5
+   LAUNCH-READY LUXURY DETAILS
+   Add BELOW all existing CSS
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   1. PREMIUM TEXT SELECTION
+--------------------------------------------------------- */
+
+::selection {
+    background: #c5a46d;
+    color: #0b0b0a;
+}
+
+::-moz-selection {
+    background: #c5a46d;
+    color: #0b0b0a;
+}
+
+
+/* ---------------------------------------------------------
+   2. BODY POLISH
+--------------------------------------------------------- */
+
+body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* ---------------------------------------------------------
+   3. PRELOADER
+--------------------------------------------------------- */
+
+.preloader {
+    background: #0b0b0a;
+}
+
+.preloader-logo {
+    letter-spacing: .24em;
+}
+
+.preloader-line {
+    position: relative;
+    overflow: hidden;
+}
+
+.preloader-line::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #c5a46d;
+    transform: translateX(-100%);
+    animation: palaceLoaderLine 1.5s cubic-bezier(.65,0,.35,1) forwards;
+}
+
+@keyframes palaceLoaderLine {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+
+/* ---------------------------------------------------------
+   4. NAVBAR GLASS EFFECT
+--------------------------------------------------------- */
+
+.navbar.scrolled {
+    background: rgba(11,11,10,.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(197,164,109,.12);
+}
+
+
+/* ---------------------------------------------------------
+   5. HERO IMAGE DEPTH
+--------------------------------------------------------- */
+
+.hero-image {
+    overflow: hidden;
+}
+
+.hero-image img {
+    transform: scale(1.015);
+    transition:
+        transform 1.8s cubic-bezier(.2,.65,.2,1),
+        filter 1s ease;
+}
+
+.hero:hover .hero-image img {
+    transform: scale(1.035);
+}
+
+
+/* ---------------------------------------------------------
+   6. HERO TEXT REFINEMENT
+--------------------------------------------------------- */
+
+.hero-eyebrow,
+.hero-location {
+    letter-spacing: .22em;
+}
+
+.hero-title {
+    text-wrap: balance;
+}
+
+
+/* ---------------------------------------------------------
+   7. GOLD MICRO-LINES
+--------------------------------------------------------- */
+
+.section-label {
+    position: relative;
+}
+
+.section-label::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    margin-right: 12px;
+    vertical-align: middle;
+    background: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   8. INTRODUCTION
+--------------------------------------------------------- */
+
+.intro-section {
+    position: relative;
+}
+
+.intro-section::after {
+    content: "AIKEN'S PALACE";
+    position: absolute;
+    right: 5%;
+    bottom: 8%;
+    font-size: 10px;
+    letter-spacing: .35em;
+    opacity: .12;
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   9. ROOM IMAGE LOADING
+--------------------------------------------------------- */
+
+.room-image {
+    background: #151513;
+}
+
+.room-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* ---------------------------------------------------------
+   10. ROOM CARD NUMBERING
+--------------------------------------------------------- */
+
+.room-card {
+    counter-increment: palace-room;
+}
+
+.rooms-grid {
+    counter-reset: palace-room;
+}
+
+.room-card::before {
+    content: "0" counter(palace-room);
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    z-index: 5;
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: .2em;
+    opacity: .75;
+    text-shadow: 0 2px 10px rgba(0,0,0,.35);
+}
+
+
+/* ---------------------------------------------------------
+   11. ROOM CARD OVERLAY
+--------------------------------------------------------- */
+
+.room-card .room-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,.12),
+        transparent 35%,
+        rgba(0,0,0,.15)
+    );
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   12. EXPERIENCE SECTION
+--------------------------------------------------------- */
+
+.experience-section {
+    position: relative;
+}
+
+.experience-section::before {
+    content: "EXPERIENCE";
+    position: absolute;
+    top: 8%;
+    right: 4%;
+    font-size: 10px;
+    letter-spacing: .3em;
+    opacity: .16;
+}
+
+
+/* ---------------------------------------------------------
+   13. EXPERIENCE LIST
+--------------------------------------------------------- */
+
+.experience-item {
+    cursor: pointer;
+}
+
+.experience-item:hover .experience-title {
+    color: #c5a46d;
+}
+
+.experience-title {
+    transition: color .35s ease;
+}
+
+
+/* ---------------------------------------------------------
+   14. POOL SECTION
+--------------------------------------------------------- */
+
+.visual-break {
+    isolation: isolate;
+}
+
+.visual-break .visual-content {
+    z-index: 4;
+}
+
+.visual-break .visual-content p {
+    letter-spacing: .18em;
+}
+
+
+/* ---------------------------------------------------------
+   15. DINING / WELLNESS / EVENTS
+--------------------------------------------------------- */
+
+.dining-section h2,
+.wellness-section h2,
+.events-section h2 {
+    text-wrap: balance;
+}
+
+.dining-section p,
+.wellness-section p,
+.events-section p {
+    max-width: 560px;
+}
+
+
+/* ---------------------------------------------------------
+   16. IMAGE FRAME DETAILS
+--------------------------------------------------------- */
+
+.dining-image::before,
+.wellness-image::before,
+.events-image::before {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    border: 1px solid rgba(255,255,255,.18);
+    z-index: 2;
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   17. LOBBY SECTION
+--------------------------------------------------------- */
+
+.lobby-section {
+    overflow: hidden;
+}
+
+.lobby-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(
+            circle at center,
+            transparent 15%,
+            rgba(0,0,0,.38) 100%
+        );
+    z-index: 1;
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   18. RESERVATION SUCCESS STATE
+--------------------------------------------------------- */
+
+.booking-success,
+.payment-success {
+    text-align: center;
+}
+
+.booking-success h2,
+.payment-success h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: .95;
+}
+
+
+/* ---------------------------------------------------------
+   19. SUCCESS CHECK
+--------------------------------------------------------- */
+
+.success-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 25px;
+    border: 1px solid #c5a46d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c5a46d;
+    font-size: 24px;
+}
+
+
+/* ---------------------------------------------------------
+   20. FOOTER BRAND
+--------------------------------------------------------- */
+
+.footer-brand {
+    letter-spacing: .14em;
+}
+
+.footer-location {
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+
+
+/* ---------------------------------------------------------
+   21. FOOTER DIVIDER
+--------------------------------------------------------- */
+
+footer hr {
+    border: 0;
+    height: 1px;
+    background: rgba(197,164,109,.18);
+}
+
+
+/* ---------------------------------------------------------
+   22. BUTTON PRESS FEEDBACK
+--------------------------------------------------------- */
+
+button:active,
+a.button:active,
+.reserve-button:active {
+    transform: translateY(1px) scale(.99);
+}
+
+
+/* ---------------------------------------------------------
+   23. MOBILE IMAGE FRAMES
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+    .dining-image::before,
+    .wellness-image::before,
+    .events-image::before {
+        inset: 10px;
+    }
+
+    .intro-section::after,
+    .experience-section::before {
+        display: none;
+    }
+
+    .room-card::before {
+        top: 13px;
+        left: 13px;
+    }
+
+    .hero-image img {
+        transform: none;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   24. VERY SMALL DEVICES
+--------------------------------------------------------- */
+
+@media (max-width: 390px) {
+
+    .section-label::before {
+        width: 20px;
+        margin-right: 8px;
+    }
+
+    .dining-image::before,
+    .wellness-image::before,
+    .events-image::before {
+        inset: 8px;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   25. REDUCED MOTION
+--------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .preloader-line::after,
+    .hero-image img {
+        animation: none;
+        transition: none;
+    }
+}
+
+
+/* =========================================================
+   END — PASS 5
+   ========================================================= */
+   /* =========================================================
+   AIKEN'S PALACE
+   PASS 6 → FINAL CSS FINISH
+   ---------------------------------------------------------
+   IMPORTANT:
+   • KEEP ALL EXISTING CSS
+   • DO NOT DELETE PREVIOUS PASSES
+   • PASTE THIS ENTIRE BLOCK ONCE AT THE VERY BOTTOM
+   • THIS BLOCK CONTINUES FROM PASS 6
+   ========================================================= */
+
+
+/* =========================================================
+   PASS 6
+   GUEST BOOKING JOURNEY
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   6.1 — BOOKING FORM CONTAINER
+--------------------------------------------------------- */
+
+.booking-form,
+.reservation-form {
+    position: relative;
+}
+
+.booking-form::before,
+.reservation-form::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 42px;
+    height: 1px;
+    background: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   6.2 — BOOKING FORM SECTIONS
+--------------------------------------------------------- */
+
+.booking-form-section,
+.reservation-form-section {
+    position: relative;
+}
+
+.booking-form-section + .booking-form-section,
+.reservation-form-section + .reservation-form-section {
+    margin-top: 34px;
+}
+
+
+/* ---------------------------------------------------------
+   6.3 — FORM STEP LABELS
+--------------------------------------------------------- */
+
+.booking-step,
+.form-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    color: #c5a46d;
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+
+.booking-step::before,
+.form-step::before {
+    content: "";
+    width: 26px;
+    height: 1px;
+    background: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   6.4 — BOOKING SUMMARY
+--------------------------------------------------------- */
+
+.booking-summary {
+    position: relative;
+    padding: 28px;
+    border: 1px solid rgba(197,164,109,.28);
+    background: rgba(197,164,109,.025);
+}
+
+.booking-summary::before {
+    content: "YOUR STAY";
+    display: block;
+    margin-bottom: 22px;
+    color: #c5a46d;
+    font-size: 10px;
+    letter-spacing: .22em;
+}
+
+.booking-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(197,164,109,.12);
+}
+
+.booking-summary-row:last-child {
+    border-bottom: 0;
+}
+
+.booking-summary-label {
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    opacity: .58;
+}
+
+.booking-summary-value {
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 21px;
+}
+
+
+/* ---------------------------------------------------------
+   6.5 — SELECTED ROOM STATE
+--------------------------------------------------------- */
+
+.room-card.selected,
+.room-card.is-selected {
+    border-color: #c5a46d;
+    box-shadow:
+        0 0 0 1px rgba(197,164,109,.35),
+        0 18px 50px rgba(0,0,0,.16);
+}
+
+.room-card.selected::after,
+.room-card.is-selected::after {
+    content: "SELECTED";
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    z-index: 8;
+    padding: 7px 10px;
+    color: #0b0b0a;
+    background: #c5a46d;
+    font-size: 8px;
+    letter-spacing: .18em;
+}
+
+
+/* ---------------------------------------------------------
+   6.6 — RESERVATION REVIEW
+--------------------------------------------------------- */
+
+.booking-review,
+.reservation-review {
+    position: relative;
+    padding: 30px;
+    border: 1px solid rgba(197,164,109,.3);
+    background: rgba(255,255,255,.025);
+}
+
+.booking-review::before,
+.reservation-review::before {
+    content: "REVIEW YOUR RESERVATION";
+    display: block;
+    margin-bottom: 24px;
+    color: #c5a46d;
+    font-size: 10px;
+    letter-spacing: .22em;
+}
+
+.booking-review-item,
+.reservation-review-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(197,164,109,.12);
+}
+
+.booking-review-item:last-child,
+.reservation-review-item:last-child {
+    border-bottom: 0;
+}
+
+
+/* ---------------------------------------------------------
+   6.7 — REVIEW VALUES
+--------------------------------------------------------- */
+
+.booking-review-label,
+.reservation-review-label {
+    color: rgba(243,239,232,.58);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.booking-review-value,
+.reservation-review-value {
+    color: #f3efe8;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 20px;
+}
+
+
+/* ---------------------------------------------------------
+   6.8 — CONFIRMATION STATE
+--------------------------------------------------------- */
+
+.booking-confirmation,
+.reservation-confirmation {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.booking-confirmation::before,
+.reservation-confirmation::before {
+    content: "AIKEN'S PALACE";
+    display: block;
+    margin-bottom: 18px;
+    color: #c5a46d;
+    font-size: 10px;
+    letter-spacing: .3em;
+}
+
+
+/* ---------------------------------------------------------
+   6.9 — CONFIRMATION ICON
+--------------------------------------------------------- */
+
+.booking-confirmation-icon,
+.reservation-confirmation-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 28px;
+    border: 1px solid #c5a46d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c5a46d;
+    font-size: 25px;
+}
+
+
+/* ---------------------------------------------------------
+   6.10 — CONFIRMATION CODE
+--------------------------------------------------------- */
+
+.booking-reference,
+.reservation-reference,
+.confirmation-number {
+    margin-top: 24px;
+    padding: 15px 20px;
+    border-top: 1px solid rgba(197,164,109,.2);
+    border-bottom: 1px solid rgba(197,164,109,.2);
+    color: #c5a46d;
+    font-size: 11px;
+    letter-spacing: .2em;
+}
+
+
+/* =========================================================
+   PASS 7
+   PREMIUM MICRO-INTERACTIONS
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   7.1 — TEXT LINKS
+--------------------------------------------------------- */
+
+.text-link,
+.learn-more,
+.view-details {
+    position: relative;
+}
+
+.text-link::after,
+.learn-more::after,
+.view-details::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 1px;
+    background: #c5a46d;
+    transition: width .35s ease;
+}
+
+.text-link:hover::after,
+.learn-more:hover::after,
+.view-details:hover::after {
+    width: 100%;
+}
+
+
+/* ---------------------------------------------------------
+   7.2 — IMAGE REVEAL
+--------------------------------------------------------- */
+
+.image-reveal,
+.reveal-image {
+    overflow: hidden;
+}
+
+.image-reveal img,
+.reveal-image img {
+    transition:
+        transform 1s cubic-bezier(.2,.65,.2,1),
+        opacity .7s ease;
+}
+
+.image-reveal:hover img,
+.reveal-image:hover img {
+    transform: scale(1.025);
+}
+
+
+/* ---------------------------------------------------------
+   7.3 — GOLD HAIRLINE
+--------------------------------------------------------- */
+
+.gold-line {
+    width: 50px;
+    height: 1px;
+    background: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   7.4 — SECTION NUMBERS
+--------------------------------------------------------- */
+
+.section-number {
+    color: #c5a46d;
+    font-size: 10px;
+    letter-spacing: .2em;
+}
+
+
+/* ---------------------------------------------------------
+   7.5 — HOVER IMAGE CAPTION
+--------------------------------------------------------- */
+
+.image-caption {
+    transition:
+        opacity .35s ease,
+        transform .35s ease;
+}
+
+.image-caption:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   PASS 8
+   LUXURY MODAL / OVERLAY FINISH
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   8.1 — MODAL SCROLLBAR
+--------------------------------------------------------- */
+
+.modal-content::-webkit-scrollbar,
+.room-modal-content::-webkit-scrollbar,
+.booking-modal-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.modal-content::-webkit-scrollbar-track,
+.room-modal-content::-webkit-scrollbar-track,
+.booking-modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb,
+.room-modal-content::-webkit-scrollbar-thumb,
+.booking-modal-content::-webkit-scrollbar-thumb {
+    background: rgba(197,164,109,.5);
+}
+
+
+/* ---------------------------------------------------------
+   8.2 — MODAL HEADINGS
+--------------------------------------------------------- */
+
+.modal-content h2,
+.room-modal-content h2,
+.booking-modal-content h2 {
+    text-wrap: balance;
+}
+
+
+/* ---------------------------------------------------------
+   8.3 — MODAL GOLD DIVIDER
+--------------------------------------------------------- */
+
+.modal-content h2::after,
+.room-modal-content h2::after,
+.booking-modal-content h2::after {
+    content: "";
+    display: block;
+    width: 35px;
+    height: 1px;
+    margin-top: 16px;
+    background: #c5a46d;
+}
+
+
+/* ---------------------------------------------------------
+   8.4 — MODAL ACTION AREA
+--------------------------------------------------------- */
+
+.modal-actions,
+.room-modal-actions,
+.booking-modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 28px;
+}
+
+
+/* =========================================================
+   PASS 9
+   LUXURY HOTEL DETAILS
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   9.1 — AMENITY LIST
+--------------------------------------------------------- */
+
+.amenities,
+.room-amenities {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 10px 20px;
+    margin-top: 24px;
+}
+
+.amenity,
+.room-amenity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(197,164,109,.12);
+    font-size: 12px;
+}
+
+.amenity::before,
+.room-amenity::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    flex: 0 0 5px;
+    border: 1px solid #c5a46d;
+    border-radius: 50%;
+}
+
+
+/* ---------------------------------------------------------
+   9.2 — HOTEL INFO DETAILS
+--------------------------------------------------------- */
+
+.hotel-detail,
+.property-detail {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.hotel-detail strong,
+.property-detail strong {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 19px;
+    font-weight: 500;
+}
+
+
+/* ---------------------------------------------------------
+   9.3 — LOCATION TEXT
+--------------------------------------------------------- */
+
+.location-label {
+    color: #c5a46d;
+    font-size: 9px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+
+
+/* ---------------------------------------------------------
+   9.4 — PREMIUM DIVIDERS
+--------------------------------------------------------- */
+
+.luxury-divider {
+    width: 100%;
+    height: 1px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(197,164,109,.35),
+            transparent
+        );
+}
+
+
+/* =========================================================
+   PASS 10
+   MOBILE FINALIZATION
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    /* Booking summary */
+
+    .booking-summary,
+    .booking-review,
+    .reservation-review {
+        padding: 20px;
+    }
+
+    .booking-summary-row,
+    .booking-review-item,
+    .reservation-review-item {
+        gap: 15px;
+    }
+
+    .booking-summary-value,
+    .booking-review-value,
+    .reservation-review-value {
+        font-size: 18px;
+    }
+
+
+    /* Amenities */
+
+    .amenities,
+    .room-amenities {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+
+    /* Modal actions */
+
+    .modal-actions,
+    .room-modal-actions,
+    .booking-modal-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .modal-actions button,
+    .room-modal-actions button,
+    .booking-modal-actions button {
+        width: 100%;
+        min-height: 50px;
+    }
+
+
+    /* Confirmation */
+
+    .booking-confirmation-icon,
+    .reservation-confirmation-icon {
+        width: 62px;
+        height: 62px;
+        margin-bottom: 22px;
+    }
+
+
+    /* Room selected state */
+
+    .room-card.selected::after,
+    .room-card.is-selected::after {
+        right: 12px;
+        top: 12px;
+        padding: 6px 8px;
+        font-size: 7px;
+    }
+
+}
+
+
+/* =========================================================
+   PASS 11
+   SMALL PHONE FINALIZATION
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    .booking-summary,
+    .booking-review,
+    .reservation-review {
+        padding: 17px;
+    }
+
+    .booking-summary-row,
+    .booking-review-item,
+    .reservation-review-item {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .booking-summary-value,
+    .booking-review-value,
+    .reservation-review-value {
+        text-align: left;
+    }
+
+    .booking-step,
+    .form-step {
+        font-size: 9px;
+    }
+
+}
+
+
+/* =========================================================
+   PASS 12
+   TOUCH DEVICE OPTIMIZATION
+   ========================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+    .room-card:hover {
+        transform: none;
+    }
+
+    .image-reveal:hover img,
+    .reveal-image:hover img {
+        transform: none;
+    }
+
+    .text-link:hover::after,
+    .learn-more:hover::after,
+    .view-details:hover::after {
+        width: 0;
+    }
+
+}
+
+
+/* =========================================================
+   PASS 13
+   FINAL ACCESSIBILITY FINISH
+   ========================================================= */
+
+.booking-form input:focus-visible,
+.booking-form select:focus-visible,
+.booking-form textarea:focus-visible,
+.reservation-form input:focus-visible,
+.reservation-form select:focus-visible,
+.reservation-form textarea:focus-visible {
+    outline: 1px solid #c5a46d;
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   PASS 14
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .image-reveal img,
+    .reveal-image img,
+    .room-card,
+    .text-link::after,
+    .learn-more::after,
+    .view-details::after {
+        transition: none !important;
+    }
+
+}
+
+
+/* =========================================================
+   PASS 15
+   FINAL MOBILE SAFETY
+   ---------------------------------------------------------
+   Prevents horizontal overflow from luxury typography,
+   cards, modals and decorative elements.
+   ========================================================= */
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img,
+video {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+
+    .booking-summary,
+    .booking-review,
+    .reservation-review,
+    .room-modal-content,
+    .booking-modal-content {
+        max-width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   PASS 16
+   FINAL POLISH
+   ========================================================= */
+
+.luxury-accent {
+    color: #c5a46d;
+}
+
+.luxury-border {
+    border-color: rgba(197,164,109,.3);
+}
+
+.luxury-uppercase {
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.luxury-serif {
+    font-family: "Cormorant Garamond", serif;
+}
+
+
+/* =========================================================
+   END OF AIKEN'S PALACE
+   PASS 6 → FINAL CSS ADDITIONS
+   ========================================================= */
+   /* =========================================
+   AIKEN'S PALACE — HERO TITLE SAFETY FIX
+   Keeps original hero positioning
+========================================= */
+
+@media (max-width: 768px) {
+
+    .hero {
+        overflow: hidden;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 24px;
+        padding-right: 24px;
+        margin-left: 0;
+        margin-right: 0;
+        box-sizing: border-box;
+    }
+
+    .hero h1 {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        font-size: clamp(46px, 13vw, 72px);
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        overflow-wrap: normal;
+        word-break: normal;
+    }
+
+}
+
+@media (max-width: 390px) {
+
+    .hero-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .hero h1 {
+        font-size: clamp(42px, 12.5vw, 58px);
+    }
+
+}
+/* =========================================================
+   AIKEN'S PALACE — MOBILE LUXURY POLISH
+   PHONE ONLY — DESKTOP REMAINS UNCHANGED
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* ---------- GLOBAL MOBILE ---------- */
+
+    html {
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    section {
+        overflow: hidden;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 22px;
+        padding-right: 22px;
+        box-sizing: border-box;
+    }
+
+
+    /* ---------- NAVIGATION ---------- */
+
+    .navbar {
+        padding: 16px 20px;
+    }
+
+    .nav-logo {
+        max-width: 150px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    /* ---------- HERO ---------- */
+
+    .hero {
+        min-height: 100svh;
+        overflow: hidden;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 22px;
+        padding-right: 22px;
+        margin-left: 0;
+        margin-right: 0;
+        box-sizing: border-box;
+    }
+
+    .hero h1 {
+        width: 100%;
+        max-width: 100%;
+        font-size: clamp(44px, 13vw, 68px);
+        line-height: .94;
+        letter-spacing: -.025em;
+        margin-left: 0;
+        margin-right: 0;
+        overflow-wrap: normal;
+        word-break: normal;
+    }
+
+    .hero p {
+        max-width: 340px;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .hero-buttons {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .hero-buttons a,
+    .hero-buttons button {
+        width: 100%;
+        min-height: 52px;
+        box-sizing: border-box;
+    }
+
+
+    /* ---------- SECTION HEADINGS ---------- */
+
+    .section-heading,
+    .section-title {
+        max-width: 100%;
+    }
+
+    .section-heading h2,
+    .section-title h2 {
+        font-size: clamp(38px, 10vw, 56px);
+        line-height: .95;
+        letter-spacing: -.02em;
+    }
+
+    .section-heading p,
+    .section-title p {
+        font-size: 14px;
+        line-height: 1.7;
+        max-width: 340px;
+    }
+
+
+    /* ---------- INTRO / ABOUT ---------- */
+
+    .intro,
+    .about {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+
+    .intro-grid,
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 34px;
+    }
+
+    .intro h2,
+    .about h2 {
+        font-size: clamp(38px, 10vw, 54px);
+        line-height: .95;
+    }
+
+    .intro p,
+    .about p {
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+
+    /* ---------- ROOMS ---------- */
+
+    .rooms-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .room-card {
+        width: 100%;
+    }
+
+    .room-card img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+    }
+
+    .room-card-content {
+        padding: 22px;
+    }
+
+    .room-card h3 {
+        font-size: 28px;
+        line-height: 1;
+    }
+
+    .room-card p {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+
+    /* ---------- EXPERIENCE ---------- */
+
+    .experience-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .experience-card,
+    .experience-item {
+        min-height: 150px;
+    }
+
+    .experience-card img,
+    .experience-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
+    /* ---------- EXPERIENCE BUTTONS ---------- */
+
+    .experience-buttons {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .experience-buttons button {
+        width: 100%;
+        min-height: 54px;
+        text-align: left;
+        padding: 15px 18px;
+    }
+
+
+    /* ---------- FULL WIDTH IMAGE SECTIONS ---------- */
+
+    .image-section img,
+    .full-image img,
+    .feature-image img {
+        width: 100%;
+        height: auto;
+        min-height: 320px;
+        object-fit: cover;
+    }
+
+
+    /* ---------- INFINITY POOL ---------- */
+
+    .pool-section,
+    .infinity-pool {
+        min-height: 620px;
+    }
+
+    .pool-content,
+    .infinity-pool-content {
+        width: 100%;
+        max-width: 100%;
+        padding: 28px 22px;
+        box-sizing: border-box;
+    }
+
+    .pool-content h2,
+    .infinity-pool-content h2 {
+        font-size: clamp(42px, 12vw, 66px);
+        line-height: .9;
+        overflow-wrap: normal;
+    }
+
+
+    /* ---------- DINING / WELLNESS / CELEBRATIONS ---------- */
+
+    .dining-grid,
+    .wellness-grid,
+    .celebrations-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .dining-grid img,
+    .wellness-grid img,
+    .celebrations-grid img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+
+
+    /* ---------- LOBBY ---------- */
+
+    .lobby-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .lobby-grid img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+
+    /* ---------- RESERVATION ---------- */
+
+    .booking-section,
+    .reservation-section {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+
+    .booking-form {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .booking-form input,
+    .booking-form select,
+    .booking-form button {
+        width: 100%;
+        min-height: 54px;
+        box-sizing: border-box;
+    }
+
+    .payment-methods {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .payment-method {
+        min-height: 64px;
+    }
+
+
+    /* ---------- MODALS ---------- */
+
+    .modal,
+    .booking-modal,
+    .experience-modal {
+        padding: 16px;
+        box-sizing: border-box;
+    }
+
+    .modal-content,
+    .booking-modal-content,
+    .experience-modal-content {
+        width: 100%;
+        max-width: 100%;
+        max-height: 90svh;
+        overflow-y: auto;
+        border-radius: 0;
+        box-sizing: border-box;
+    }
+
+    .experience-modal-content img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+
+
+    /* ---------- FOOTER ---------- */
+
+    footer {
+        overflow: hidden;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+
+    .footer-column {
+        width: 100%;
+    }
+
+    .footer-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding-top: 24px;
+        padding-bottom: 24px;
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+
+    /* ---------- BUTTONS ---------- */
+
+    .btn,
+    .button,
+    .primary-button,
+    .secondary-button {
+        min-height: 52px;
+        box-sizing: border-box;
+    }
+
+
+    /* ---------- IMAGES ---------- */
+
+    img {
+        max-width: 100%;
+    }
+
+
+    /* ---------- TOUCH ---------- */
+
+    button,
+    a,
+    input,
+    select {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .hero-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .hero h1 {
+        font-size: clamp(40px, 12.5vw, 56px);
+    }
+
+    .hero p {
+        font-size: 13px;
+    }
+
+    .section-heading h2,
+    .section-title h2 {
+        font-size: 38px;
+    }
+
+    .room-card-content {
+        padding: 18px;
+    }
+
+}
+/* =========================================================
+   AIKEN'S PALACE — CLEAN MOBILE MENU
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .mobile-menu {
+        position: fixed;
+        inset: 0;
+        z-index: 9998;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        padding: 85px 28px 75px;
+
+        background: #0b0b0a;
+
+        overflow-y: auto;
+        box-sizing: border-box;
+
+        transform: translateX(100%);
+        transition: transform .5s cubic-bezier(.77, 0, .18, 1);
+    }
+
+    .mobile-menu.active {
+        transform: translateX(0);
+    }
+
+
+    /* MENU LINKS */
+
+    .mobile-menu a {
+        display: block;
+
+        width: 100%;
+        box-sizing: border-box;
+
+        padding: 11px 0;
+
+        color: #f3efe8;
+        text-decoration: none;
+
+        font-family: "Cormorant Garamond", serif;
+        font-size: 25px;
+        font-weight: 500;
+
+        line-height: 1.1;
+        letter-spacing: .01em;
+
+        border-bottom: 1px solid rgba(197,164,109,.14);
+
+        transition:
+            color .25s ease,
+            padding-left .25s ease;
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu a:active {
+        color: #c5a46d;
+        padding-left: 4px;
+    }
+
+    .mobile-menu a:last-of-type {
+        border-bottom: none;
+    }
+
+
+    /* CLOSE BUTTON */
+
+    .mobile-menu-close {
+        position: absolute;
+
+        top: 22px;
+        right: 22px;
+
+        width: 42px;
+        height: 42px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: 1px solid rgba(197,164,109,.38);
+        border-radius: 50%;
+
+        background: transparent;
+        color: #f3efe8;
+
+        font-size: 20px;
+
+        cursor: pointer;
+    }
+
+
+    /* IMPORTANT:
+       Remove the artificial AIKEN'S PALACE
+       and location text that caused duplication.
+    */
+
+    .mobile-menu::before,
+    .mobile-menu::after {
+        display: none !important;
+        content: none !important;
+    }
+
+}
+
+
+/* SMALL PHONES */
+
+@media (max-width: 390px) {
+
+    .mobile-menu {
+        padding-left: 22px;
+        padding-right: 22px;
+    }
+
+    .mobile-menu a {
+        font-size: 23px;
+        padding: 10px 0;
+    }
+
+}
+/* =========================================================
+   AIKEN'S PALACE — MOBILE PREMIUM EXPERIENCE
+   PHONE ONLY
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* =====================================================
+       GLOBAL
+    ===================================================== */
+
+    body {
+        background: #f3efe8;
+    }
+
+    section {
+        position: relative;
+    }
+
+    .container {
+        padding-left: 22px;
+        padding-right: 22px;
+    }
+
+
+    /* =====================================================
+       SECTION SPACING
+    ===================================================== */
+
+    .intro,
+    .about,
+    .rooms,
+    .experience,
+    .dining,
+    .wellness,
+    .celebrations,
+    .lobby,
+    .booking-section,
+    .reservation-section {
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+
+
+    /* =====================================================
+       PREMIUM SECTION LABELS
+    ===================================================== */
+
+    .eyebrow,
+    .section-eyebrow,
+    .section-label {
+        font-size: 9px;
+        letter-spacing: .24em;
+        line-height: 1.4;
+        margin-bottom: 14px;
+    }
+
+
+    /* =====================================================
+       HEADINGS
+    ===================================================== */
+
+    .section-heading h2,
+    .section-title h2 {
+        font-size: clamp(38px, 10vw, 52px);
+        line-height: .94;
+        letter-spacing: -.025em;
+        margin-bottom: 20px;
+    }
+
+    .intro h2,
+    .about h2 {
+        font-size: clamp(38px, 10vw, 54px);
+        line-height: .94;
+        letter-spacing: -.025em;
+    }
+
+    .section-heading p,
+    .section-title p,
+    .intro p,
+    .about p {
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+
+    /* =====================================================
+       HERO — KEEP POSITIONING SAFE
+    ===================================================== */
+
+    .hero {
+        min-height: 100svh;
+        overflow: hidden;
+    }
+
+    .hero-content {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+        padding-left: 22px;
+        padding-right: 22px;
+    }
+
+    .hero h1 {
+        max-width: 100%;
+        font-size: clamp(43px, 12.5vw, 66px);
+        line-height: .95;
+        letter-spacing: -.025em;
+    }
+
+    .hero p {
+        max-width: 330px;
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    .hero-buttons {
+        margin-top: 25px;
+        gap: 10px;
+    }
+
+    .hero-buttons a,
+    .hero-buttons button {
+        min-height: 52px;
+    }
+
+
+    /* =====================================================
+       IMAGE TREATMENT
+    ===================================================== */
+
+    .intro img,
+    .about img,
+    .room-card img,
+    .experience-card img,
+    .experience-item img,
+    .dining-grid img,
+    .wellness-grid img,
+    .celebrations-grid img,
+    .lobby-grid img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+    }
+
+
+    /* =====================================================
+       ROOMS — LUXURY CARDS
+    ===================================================== */
+
+    .rooms-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .room-card {
+        position: relative;
+        overflow: hidden;
+        background: #0b0b0a;
+        border: 1px solid rgba(197,164,109,.22);
+    }
+
+    .room-card img {
+        aspect-ratio: 4 / 3;
+        transition: transform .7s ease;
+    }
+
+    .room-card:active img {
+        transform: scale(1.025);
+    }
+
+    .room-card-content {
+        padding: 22px 20px 24px;
+    }
+
+    .room-card h3 {
+        font-size: 27px;
+        line-height: 1;
+        margin-bottom: 10px;
+    }
+
+    .room-card p {
+        font-size: 13px;
+        line-height: 1.7;
+        opacity: .8;
+    }
+
+
+    /* =====================================================
+       EXPERIENCE
+    ===================================================== */
+
+    .experience-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .experience-card,
+    .experience-item {
+        min-height: 230px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .experience-card img,
+    .experience-item img {
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
+    }
+
+
+    /* =====================================================
+       EXPERIENCE BUTTONS
+    ===================================================== */
+
+    .experience-buttons {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        margin-top: 28px;
+    }
+
+    .experience-buttons button {
+        width: 100%;
+        min-height: 52px;
+        padding: 14px 17px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        background: transparent;
+        border: 1px solid rgba(197,164,109,.28);
+    }
+
+
+    /* =====================================================
+       FEATURE IMAGE SECTIONS
+    ===================================================== */
+
+    .image-section img,
+    .full-image img,
+    .feature-image img {
+        width: 100%;
+        min-height: 360px;
+        max-height: 520px;
+        object-fit: cover;
+    }
+
+
+    /* =====================================================
+       INFINITY POOL
+    ===================================================== */
+
+    .pool-section,
+    .infinity-pool {
+        min-height: 600px;
+    }
+
+    .pool-content,
+    .infinity-pool-content {
+        padding: 30px 22px;
+        box-sizing: border-box;
+    }
+
+    .pool-content h2,
+    .infinity-pool-content h2 {
+        font-size: clamp(42px, 12vw, 64px);
+        line-height: .88;
+        letter-spacing: -.03em;
+    }
+
+
+    /* =====================================================
+       DINING / WELLNESS / CELEBRATIONS
+    ===================================================== */
+
+    .dining-grid,
+    .wellness-grid,
+    .celebrations-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .dining-grid img,
+    .wellness-grid img,
+    .celebrations-grid img {
+        height: 330px;
+        object-fit: cover;
+    }
+
+
+    /* =====================================================
+       LOBBY
+    ===================================================== */
+
+    .lobby-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .lobby-grid img {
+        width: 100%;
+        height: 360px;
+        object-fit: cover;
+    }
+
+
+    /* =====================================================
+       RESERVATION FORM
+    ===================================================== */
+
+    .booking-form {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .booking-form input,
+    .booking-form select {
+        width: 100%;
+        min-height: 54px;
+        padding: 0 16px;
+        box-sizing: border-box;
+    }
+
+    .booking-form button {
+        width: 100%;
+        min-height: 54px;
+    }
+
+    .payment-methods {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .payment-method {
+        min-height: 60px;
+    }
+
+
+    /* =====================================================
+       MODALS
+    ===================================================== */
+
+    .modal,
+    .booking-modal,
+    .experience-modal {
+        padding: 14px;
+    }
+
+    .modal-content,
+    .booking-modal-content,
+    .experience-modal-content {
+        width: 100%;
+        max-width: 100%;
+        max-height: 90svh;
+        overflow-y: auto;
+        box-sizing: border-box;
+    }
+
+    .experience-modal-content img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+    }
+
+
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
+
+    .btn,
+    .button,
+    .primary-button,
+    .secondary-button {
+        min-height: 52px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 9px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        font-size: 9px;
+        letter-spacing: .08em;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .hero-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .hero h1 {
+        font-size: clamp(40px, 12vw, 55px);
+    }
+
+    .section-heading h2,
+    .section-title h2 {
+        font-size: 37px;
+    }
+
+    .intro,
+    .about,
+    .rooms,
+    .experience,
+    .dining,
+    .wellness,
+    .celebrations,
+    .lobby,
+    .booking-section,
+    .reservation-section {
+        padding-top: 75px;
+        padding-bottom: 75px;
+    }
+
+    .room-card-content {
+        padding: 20px 18px 22px;
+    }
+
+    .dining-grid img,
+    .wellness-grid img,
+    .celebrations-grid img {
+        height: 290px;
+    }
+
+}
